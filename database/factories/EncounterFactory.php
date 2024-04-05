@@ -11,6 +11,7 @@ class EncounterFactory extends Factory
         return [
             'title'       => $this->faker->text(100),
             'description' => $this->faker->realTextBetween(100),
+            'context'     => $this->faker->text(100),
         ];
     }
 }

@@ -13,7 +13,7 @@ const props = defineProps([
 const form = useForm({
     title: props.encounter.title,
     description: props.encounter.description,
-    location: props.encounter.location
+    context: props.encounter.context
 });
 
 function submit () {
@@ -46,10 +46,10 @@ function submit () {
                 v-model:errors="form.errors.description"
             />
             <TextInput
-                field-key="location"
-                field-title="Location"
-                v-model:field-value="form.location"
-                v-model:errors="form.errors.location"
+                field-key="context"
+                field-title="Context"
+                v-model:field-value="form.context"
+                v-model:errors="form.errors.context"
             />
             <button type="submit"
                     class="text-white bg-gray-600 rounded p-1 active:bg-gray-700 hover:bg-gray-500 col-span-2 m-1 mt-2"

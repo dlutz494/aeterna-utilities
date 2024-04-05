@@ -4,7 +4,7 @@ import GuestLayout from '@/Layouts/GuestLayout.vue';
 import { computed, reactive, ref } from 'vue';
 import EncounterTable from '@/Pages/EncounterGenerator/EncounterTable.vue';
 import GeneratorResult from '@/Pages/EncounterGenerator/GeneratorResult.vue';
-import EncounterSelector from '@/Pages/EncounterGenerator/EncounterSelector.vue';
+import EncounterSelector from '@/Pages/EncounterGenerator/ContextSelector.vue';
 
 // Setup
 const props = defineProps(
@@ -15,7 +15,7 @@ const props = defineProps(
 // Encounters
 const selectedEncounter = reactive({});
 const filteredEncounters = computed(() => {
-    return props.encounters.filter((encounter) => encounter.location === selectedCategory.value || encounter.location === null);
+    return props.encounters.filter((encounter) => encounter.context === selectedContext.value || encounter.context === null);
 });
 const getEncounter = () => {
     const index = Math.floor(Math.random() * filteredEncounters.value.length);
@@ -23,12 +23,12 @@ const getEncounter = () => {
 };
 
 // Categories
-const selectedCategory = ref('');
+const selectedContext = ref('');
 const encounterCategories = computed(() => {
-    return [...new Set(props.encounters.map(encounter => encounter.location))];
+    return [...new Set(props.encounters.map(encounter => encounter.context))];
 });
-const selectCategory = (category) => {
-    selectedCategory.value = category;
+const selectContext = (context) => {
+    selectedContext.value = context;
     selectedEncounter.value = {};
 };
 </script>
@@ -40,7 +40,7 @@ const selectCategory = (category) => {
             <EncounterSelector
                 class="mb-2"
                 :encounter-categories="encounterCategories"
-                @select:category="(category) => selectCategory(category)"
+                @select:context="(context) => selectContext(context)"
             ></EncounterSelector>
 
             <Link

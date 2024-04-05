@@ -14,13 +14,13 @@ class Encounter extends Model
     protected $attributes = [
         'title'       => '',
         'description' => '',
-        'location'    => '',
+        'context'     => '',
     ];
 
     protected $fillable = [
         'title',
         'description',
-        'location',
+        'context',
     ];
 
     protected function casts(): array
@@ -28,7 +28,7 @@ class Encounter extends Model
         return [
             'title'       => 'string',
             'description' => 'string',
-            'location'    => 'string',
+            'context'     => 'string',
         ];
     }
 }
