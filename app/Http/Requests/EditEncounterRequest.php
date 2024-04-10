@@ -7,7 +7,6 @@ use Illuminate\Foundation\Http\FormRequest;
 class EditEncounterRequest extends FormRequest
 {
     const MAX_TITLE_LENGTH = 255;
-    const MAX_CONTEXT_LENGTH = 50;
 
     public function authorize(): bool
     {
@@ -26,7 +25,7 @@ class EditEncounterRequest extends FormRequest
                 'max:' . self::MAX_TITLE_LENGTH,
             ],
             'description' => ['required', 'string'],
-            'context'    => ['nullable', 'string', 'max:' . self::MAX_CONTEXT_LENGTH],
+            'context_id'  => ['nullable', 'integer', 'exists:contexts,id'],
         ];
     }
 
@@ -39,8 +38,8 @@ class EditEncounterRequest extends FormRequest
             'title.max'            => 'That Title is too long (Maximum ' . self::MAX_TITLE_LENGTH . ' Characters)',
             'description.required' => 'A Description is needed',
             'description.string'   => 'The Description has to be a string',
-            'context.string'      => 'The Context has to be a string',
-            'context.max'         => 'That Context is too long (Maximum ' . self::MAX_CONTEXT_LENGTH . ' Characters)',
+            'context_id.integer'   => 'The Context has to be an integer',
+            'context_id.exists'    => 'That Context does not exist',
         ];
     }
 }

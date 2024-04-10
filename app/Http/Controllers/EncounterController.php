@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateEncounterRequest;
 use App\Http\Requests\EditEncounterRequest;
+use App\Models\Context;
 use App\Models\Encounter;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -21,7 +22,12 @@ class EncounterController extends Controller
 
     public function create(): Response
     {
-        return Inertia::render('EncounterGenerator/CreateEncounter');
+        return Inertia::render(
+            'EncounterGenerator/CreateEncounter',
+            [
+                'contexts' => Context::all(),
+            ]
+        );
     }
 
     public function doDelete(Request $request, Encounter $encounter): RedirectResponse
@@ -37,6 +43,7 @@ class EncounterController extends Controller
             'EncounterGenerator/EditEncounter',
             [
                 'encounter' => $encounter,
+                'contexts'  => Context::all(),
             ]
         );
     }

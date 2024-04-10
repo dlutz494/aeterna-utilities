@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             'password' => 'asdfasdf',
         ]);
 
+        $this->call(ContextSeeder::class);
         $this->call(EncounterSeeder::class);
     }
 }

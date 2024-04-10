@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\ContextController;
 use App\Http\Controllers\EncounterController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Context;
 use App\Models\Encounter;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -26,6 +28,12 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/context', [ContextController::class, 'create'])->name('context.create');
+Route::post('/context', [ContextController::class, 'doCreate'])->name('context.doCreate');
+Route::get('/context/{context}', [ContextController::class, 'edit'])->name('context.edit');
+Route::post('/context/{context}', [ContextController::class, 'doEdit'])->name('context.doEdit');
+Route::delete('/context/{context}', [ContextController::class, 'doDelete'])->name('context.delete');
+
 Route::get('/encounter', [EncounterController::class, 'create'])->name('encounter.create');
 Route::post('/encounter', [EncounterController::class, 'doCreate'])->name('encounter.doCreate');
 Route::get('/encounter/{encounter}', [EncounterController::class, 'edit'])->name('encounter.edit');
@@ -35,6 +43,7 @@ Route::delete('/encounter/{encounter}', [EncounterController::class, 'doDelete']
 Route::get('/generator', function () {
     return Inertia::render('EncounterGenerator/Generator', [
         'encounters' => Encounter::all(),
+        'contexts'   => Context::all(),
     ]);
 })->name('generator');
 

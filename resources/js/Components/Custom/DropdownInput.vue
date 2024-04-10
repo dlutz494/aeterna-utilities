@@ -1,0 +1,32 @@
+<script setup>
+// Props
+const props = defineProps([
+    'fieldKey',
+    'fieldTitle',
+    'options'
+]);
+
+// Models
+const fieldValue = defineModel('fieldValue');
+const errors = defineModel('errors');
+</script>
+
+<template>
+    <label :for="props.fieldKey"
+           class="dark:text-white content-center"
+    >
+        {{ props.fieldTitle }}:
+    </label>
+    <select :id="props.fieldKey"
+            :name="props.fieldKey"
+            :class="{ 'border-red-500 border-4' : errors }"
+            class="col-span-2 rounded-lg"
+            v-model="fieldValue">
+        <option :value="null">N/A</option>
+        <option v-for="option in options"
+                :value="option.id"
+        >{{ option.title }}
+        </option>
+    </select>
+    <div v-if="errors" class="col-start-2 col-span-2 text-red-500">{{ errors }}</div>
+</template>

@@ -2,30 +2,25 @@
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 import TextInput from '@/Components/Custom/TextInput.vue';
-import TextBoxInput from '@/Components/Custom/TextBoxInput.vue';
-import DropdownInput from '@/Components/Custom/DropdownInput.vue';
 
 // Props
 const props = defineProps([
-    'encounter',
-    'contexts'
+    'context'
 ]);
 
 // Form
 const form = useForm({
-    title: props.encounter.title,
-    description: props.encounter.description,
-    context_id: props.encounter.context_id
+    title: props.context.title
 });
 
 function submit () {
-    form.post(route('encounter.doEdit', props.encounter));
+    form.post(route('context.doEdit', props.context));
 }
 
 </script>
 
 <template>
-    <Head title="Edit Encounter"/>
+    <Head title="Edit Context"/>
     <GuestLayout>
         <Link :href="route('generator')"
               class="dark:text-white dark:bg-gray-600 rounded p-2 active:bg-gray-700">
@@ -41,19 +36,6 @@ function submit () {
                 v-model:field-value="form.title"
                 v-model:errors="form.errors.title"
             />
-            <TextBoxInput
-                field-key="description"
-                field-title="Description"
-                v-model:field-value="form.description"
-                v-model:errors="form.errors.description"
-            />
-            <DropdownInput
-                field-key="context_id"
-                field-title="Context"
-                :options="contexts"
-                v-model:field-value="form.context_id"
-                v-model:errors="form.errors.context_id"
-            />
             <button type="submit"
                     class="text-white bg-gray-600 rounded p-1 active:bg-gray-700 hover:bg-gray-500 col-span-2 m-1 mt-2"
                     :disabled="form.processing">
@@ -64,11 +46,11 @@ function submit () {
                 Undo
             </button>
         </form>
-        <Link :href="route('encounter.delete', props.encounter)"
+        <Link :href="route('context.delete', props.context)"
               method="delete"
               as="button"
               class="text-white bg-red-600 rounded p-1 active:bg-red-700 hover:bg-red-500 col-start-3 col-span-1 m-1 mt-2">
-            Delete Encounter
+            Delete Context
         </Link>
     </GuestLayout>
 </template>

@@ -28,21 +28,21 @@ class EncounterSeeder extends Seeder
             Encounter::factory()->create([
                 'title'       => $title,
                 'description' => $description,
-                'context'     => 'First Place',
+                'context_id'  => 1,
             ]);
         }
         foreach ($encounterInfoTwo as $title => $description) {
             Encounter::factory()->create([
                 'title'       => $title,
                 'description' => $description,
-                'context'     => 'Second Place',
+                'context_id'  => 2,
             ]);
         }
         foreach ($encounterInfoThree as $title => $description) {
             Encounter::factory()->create([
                 'title'       => $title,
                 'description' => $description,
-                'context'     => null,
+                'context_id'  => null,
             ]);
         }
     }

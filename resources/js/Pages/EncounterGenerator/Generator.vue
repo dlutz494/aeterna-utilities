@@ -9,26 +9,27 @@ import EncounterSelector from '@/Pages/EncounterGenerator/ContextSelector.vue';
 // Setup
 const props = defineProps(
     {
-        encounters: { type: Object }
+        encounters: { type: Object },
+        contexts: { type: Object }
     });
 
-// Encounters
+// Encounter
 const selectedEncounter = reactive({});
 const filteredEncounters = computed(() => {
-    return props.encounters.filter((encounter) => encounter.context === selectedContext.value || encounter.context === null);
+    return props.encounters.filter((encounter) => encounter.context_id === selectedContext.value || encounter.context_id === null);
 });
 const getEncounter = () => {
     const index = Math.floor(Math.random() * filteredEncounters.value.length);
     selectedEncounter.value = filteredEncounters.value[index];
 };
 
-// Categories
-const selectedContext = ref('');
-const encounterCategories = computed(() => {
-    return [...new Set(props.encounters.map(encounter => encounter.context))];
+// Context
+const selectedContext = ref(0);
+const encounterContexts = computed(() => {
+    return props.contexts;
 });
 const selectContext = (context) => {
-    selectedContext.value = context;
+    selectedContext.value = parseInt(context);
     selectedEncounter.value = {};
 };
 </script>
@@ -39,7 +40,7 @@ const selectContext = (context) => {
         <div class="grid">
             <EncounterSelector
                 class="mb-2"
-                :encounter-categories="encounterCategories"
+                :encounter-contexts="encounterContexts"
                 @select:context="(context) => selectContext(context)"
             ></EncounterSelector>
 
