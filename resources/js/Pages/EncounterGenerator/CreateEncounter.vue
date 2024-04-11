@@ -24,9 +24,9 @@ function submit () {
 <template>
     <Head title="Create Encounter"/>
     <GuestLayout>
-        <Link :href="route('generator')"
+        <Link :href="route('encounter.index')"
               class="dark:text-white dark:bg-gray-600 rounded p-2 active:bg-gray-700">
-            Encounter Generator
+            Encounter List
         </Link>
 
         <form

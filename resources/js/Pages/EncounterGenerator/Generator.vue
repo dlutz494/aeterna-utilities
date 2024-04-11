@@ -38,18 +38,18 @@ const selectContext = (context) => {
     <Head title="Random Encounter Generator"/>
     <GuestLayout>
         <div class="grid">
+            <Link
+                class="text-white bg-gray-600 rounded p-1 active:bg-gray-700 hover:bg-gray-500 mb-2 text-center"
+                :href="route('generator.admin')"
+            >
+                Admin Panel
+            </Link>
+
             <EncounterSelector
                 class="mb-2"
                 :encounter-contexts="encounterContexts"
                 @select:context="(context) => selectContext(context)"
             ></EncounterSelector>
-
-            <Link
-                class="text-white bg-gray-600 rounded p-1 active:bg-gray-700 hover:bg-gray-500 mb-2 text-center"
-                :href="route('encounter.create')"
-            >
-                Create New Encounter
-            </Link>
 
             <EncounterTable
                 :encounters="filteredEncounters"
@@ -59,6 +59,7 @@ const selectContext = (context) => {
                 :result="selectedEncounter.value"
                 @generate:encounter="getEncounter"
             ></GeneratorResult>
+
         </div>
     </GuestLayout>
 </template>

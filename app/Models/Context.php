@@ -16,6 +16,10 @@ class Context extends Model
         'title' => '',
     ];
 
+    protected $fillable = [
+        'title',
+    ];
+
     public function encounter(): BelongsToMany
     {
         return $this->belongsToMany(Encounter::class);

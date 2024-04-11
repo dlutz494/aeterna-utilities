@@ -1,10 +1,9 @@
 <script setup>
 import { onMounted, onUpdated } from 'vue';
-import { Link } from '@inertiajs/vue3';
 
 const props = defineProps(
     {
-        encounterContexts: { type: Object },
+        encounterContexts: { type: Object }
     });
 
 const emit = defineEmits(['select:context']);
@@ -18,7 +17,7 @@ onUpdated(() => selectContext());
 </script>
 
 <template>
-    <div class="grid grid-cols-3">
+    <div class="grid col-span-full">
         <select
             id="context-selector"
             @change="(e) => emit('select:context', e.target.value)"
@@ -34,11 +33,5 @@ onUpdated(() => selectContext());
             >Anywhere
             </option>
         </select>
-        <Link
-            class="text-white bg-gray-600 rounded p-1 active:bg-gray-700 hover:bg-gray-500 mb-2 text-center col-start-3"
-            :href="route('context.create')"
-        >
-            Create New Context
-        </Link>
     </div>
 </template>

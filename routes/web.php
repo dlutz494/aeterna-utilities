@@ -28,12 +28,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/contexts', [ContextController::class, 'index'])->name('context.index');
 Route::get('/context', [ContextController::class, 'create'])->name('context.create');
 Route::post('/context', [ContextController::class, 'doCreate'])->name('context.doCreate');
 Route::get('/context/{context}', [ContextController::class, 'edit'])->name('context.edit');
 Route::post('/context/{context}', [ContextController::class, 'doEdit'])->name('context.doEdit');
 Route::delete('/context/{context}', [ContextController::class, 'doDelete'])->name('context.delete');
 
+Route::get('/encounters', [EncounterController::class, 'index'])->name('encounter.index');
 Route::get('/encounter', [EncounterController::class, 'create'])->name('encounter.create');
 Route::post('/encounter', [EncounterController::class, 'doCreate'])->name('encounter.doCreate');
 Route::get('/encounter/{encounter}', [EncounterController::class, 'edit'])->name('encounter.edit');
@@ -46,5 +48,8 @@ Route::get('/generator', function () {
         'contexts'   => Context::all(),
     ]);
 })->name('generator');
+Route::get('/generator-admin', function () {
+    return Inertia::render('EncounterGenerator/GeneratorAdminPanel');
+})->middleware(['auth', 'verified'])->name('generator.admin');
 
 require __DIR__ . '/auth.php';

@@ -12,11 +12,30 @@ use Inertia\Response;
 
 class ContextController extends Controller
 {
+    public function index(): Response
+    {
+        $contextData = Context::all()->map(function ($context) {
+            return [
+                'id'         => $context->id,
+                'title'      => $context->title,
+                'edit_url'   => route('context.edit', $context->id),
+                'delete_url' => route('context.delete', $context->id),
+            ];
+        });
+
+        return Inertia::render(
+            'EncounterGenerator/ContextIndex',
+            [
+                'contexts' => $contextData,
+            ]
+        );
+    }
+
     public function doCreate(CreateContextRequest $request): RedirectResponse
     {
         Context::factory()->create($request->validated());
 
-        return to_route('generator');
+        return to_route('context.index');
     }
 
     public function create(): Response
@@ -28,7 +47,7 @@ class ContextController extends Controller
     {
         $context->delete();
 
-        return to_route('generator');
+        return to_route('context.index');
     }
 
     public function edit(int $context): Response
@@ -46,6 +65,6 @@ class ContextController extends Controller
     {
         $context->update($request->validated());
 
-        return to_route('generator');
+        return to_route('context.index');
     }
 }

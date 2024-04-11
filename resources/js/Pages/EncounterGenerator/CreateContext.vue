@@ -18,9 +18,9 @@ function submit () {
 <template>
     <Head title="Create Context"/>
     <GuestLayout>
-        <Link :href="route('generator')"
+        <Link :href="route('context.index')"
               class="dark:text-white dark:bg-gray-600 rounded p-2 active:bg-gray-700">
-            Encounter Generator
+            Context List
         </Link>
 
         <form
