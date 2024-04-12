@@ -43,7 +43,6 @@ Route::post('/encounter/{encounter}', [EncounterController::class, 'doEdit'])->n
 Route::delete('/encounter/{encounter}', [EncounterController::class, 'doDelete'])->name('encounter.delete');
 
 Route::get('/generator', GeneratorController::class)->name('generator');
-Route::get('/generator-admin', GeneratorAdminController::class)->name('generator.admin')
-    ->middleware(['auth', 'verified']);
+Route::get('/generator-admin', GeneratorAdminController::class)->name('generator.admin');
 
 require __DIR__ . '/auth.php';
