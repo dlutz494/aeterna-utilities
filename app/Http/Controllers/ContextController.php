@@ -26,7 +26,8 @@ class ContextController extends Controller
         return Inertia::render(
             'EncounterGenerator/ContextIndex',
             [
-                'contexts' => $contextData,
+                'contexts'   => $contextData,
+                'create_url' => route('context.create'),
             ]
         );
     }
@@ -50,13 +51,12 @@ class ContextController extends Controller
         return to_route('context.index');
     }
 
-    public function edit(int $context): Response
+    public function edit(Context $context): Response
     {
-        $contextToEdit = Context::find($context);
         return Inertia::render(
             'EncounterGenerator/EditContext',
             [
-                'context' => $contextToEdit,
+                'context' => $context,
             ]
         );
     }

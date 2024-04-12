@@ -4,7 +4,17 @@ import GuestLayout from '@/Layouts/GuestLayout.vue';
 
 const props = defineProps(
     {
-        encounters: { type: Object }
+        encounters: {
+            type: {
+                id: Number,
+                title: String,
+                description: String,
+                context: Object,
+                edit_url: String,
+                delete_url: String
+            }
+        },
+        create_url: { type: String }
     });
 </script>
 
@@ -18,7 +28,7 @@ const props = defineProps(
         </Link>
 
         <Link
-            :href="route('encounter.create')"
+            :href="create_url"
             class="bg-gray-900 rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
         >
             Create New Encounter
@@ -37,7 +47,9 @@ const props = defineProps(
             <tr v-for="encounter in encounters" class="odd:bg-slate-800 even:bg-slate-900">
                 <td class="dark:text-white pl-4 w-1/6 border border-slate-500 mx-1">{{ encounter.title }}</td>
                 <td class="dark:text-white pl-4 w-3/6 border border-slate-500 mx-1">{{ encounter.description }}</td>
-                <td class="dark:text-white pl-4 w-1/6 border border-slate-500 mx-1">{{ encounter.context ? encounter.context.title : 'N/A' }}</td>
+                <td class="dark:text-white pl-4 w-1/6 border border-slate-500 mx-1">
+                    {{ encounter.context ? encounter.context.title : 'N/A' }}
+                </td>
                 <td class="dark:text-gray-400 w-1/6 border border-slate-500 mx-1 text-nowrap">
                     <Link
                         class="dark:text-white bg-gray-700 hover:bg-gray-800 active:bg-gray-600 rounded p-1 m-0.5"

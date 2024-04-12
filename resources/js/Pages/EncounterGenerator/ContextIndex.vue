@@ -4,7 +4,15 @@ import GuestLayout from '@/Layouts/GuestLayout.vue';
 
 const props = defineProps(
     {
-        contexts: { type: Object }
+        contexts: {
+            type: {
+                id: Number,
+                title: String,
+                edit_url: String,
+                delete_url: String
+            }
+        },
+        create_url: { type: String }
     });
 </script>
 
@@ -19,7 +27,7 @@ const props = defineProps(
         </Link>
 
         <Link
-            :href="route('context.create')"
+            :href="create_url"
             class="bg-gray-900 rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
         >
             Create New Context

@@ -30,6 +30,7 @@ class EncounterController extends Controller
             'EncounterGenerator/EncounterIndex',
             [
                 'encounters' => $encounterData,
+                'create_url' => route('encounter.create'),
             ]
         );
     }
