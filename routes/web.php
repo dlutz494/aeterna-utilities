@@ -2,9 +2,9 @@
 
 use App\Http\Controllers\ContextController;
 use App\Http\Controllers\EncounterController;
+use App\Http\Controllers\GeneratorAdminController;
+use App\Http\Controllers\GeneratorController;
 use App\Http\Controllers\ProfileController;
-use App\Models\Context;
-use App\Models\Encounter;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -42,14 +42,8 @@ Route::get('/encounter/{encounter}', [EncounterController::class, 'edit'])->name
 Route::post('/encounter/{encounter}', [EncounterController::class, 'doEdit'])->name('encounter.doEdit');
 Route::delete('/encounter/{encounter}', [EncounterController::class, 'doDelete'])->name('encounter.delete');
 
-Route::get('/generator', function () {
-    return Inertia::render('EncounterGenerator/Generator', [
-        'encounters' => Encounter::all(),
-        'contexts'   => Context::all(),
-    ]);
-})->name('generator');
-Route::get('/generator-admin', function () {
-    return Inertia::render('EncounterGenerator/GeneratorAdminPanel');
-})->middleware(['auth', 'verified'])->name('generator.admin');
+Route::get('/generator', GeneratorController::class)->name('generator');
+Route::get('/generator-admin', GeneratorAdminController::class)->name('generator.admin')
+    ->middleware(['auth', 'verified']);
 
 require __DIR__ . '/auth.php';
