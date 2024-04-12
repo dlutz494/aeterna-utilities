@@ -20,9 +20,9 @@ class EncounterController extends Controller
                 'id'          => $encounter->id,
                 'title'       => $encounter->title,
                 'description' => $encounter->description,
-                'context'     => Context::find($encounter->context_id),
-                'edit_url'    => route('encounter.edit', $encounter->id),
-                'delete_url'  => route('encounter.delete', $encounter->id),
+                'context'     => $encounter->context,
+                'edit_url'    => route('encounter.edit', $encounter),
+                'delete_url'  => route('encounter.delete', $encounter),
             ];
         });
 

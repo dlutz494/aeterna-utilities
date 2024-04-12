@@ -18,8 +18,8 @@ class ContextController extends Controller
             return [
                 'id'         => $context->id,
                 'title'      => $context->title,
-                'edit_url'   => route('context.edit', $context->id),
-                'delete_url' => route('context.delete', $context->id),
+                'edit_url'   => route('context.edit', $context),
+                'delete_url' => route('context.delete', $context),
             ];
         });
 
