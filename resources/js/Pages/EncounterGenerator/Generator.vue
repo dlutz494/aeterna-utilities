@@ -1,10 +1,10 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
-import GuestLayout from '@/Layouts/GuestLayout.vue';
 import { computed, reactive, ref } from 'vue';
 import EncounterTable from '@/Pages/EncounterGenerator/EncounterTable.vue';
 import GeneratorResult from '@/Pages/EncounterGenerator/GeneratorResult.vue';
 import EncounterSelector from '@/Pages/EncounterGenerator/ContextSelector.vue';
+import DefaultLayout from '@/Layouts/DefaultLayout.vue';
 
 // Setup
 const props = defineProps(
@@ -36,7 +36,7 @@ const selectContext = (context) => {
 
 <template>
     <Head title="Random Encounter Generator"/>
-    <GuestLayout>
+    <DefaultLayout>
         <div class="grid">
             <Link
                 class="text-white bg-gray-600 rounded p-1 active:bg-gray-700 hover:bg-gray-500 mb-2 text-center"
@@ -59,7 +59,6 @@ const selectContext = (context) => {
                 :result="selectedEncounter.value"
                 @generate:encounter="getEncounter"
             ></GeneratorResult>
-
         </div>
-    </GuestLayout>
+    </DefaultLayout>
 </template>

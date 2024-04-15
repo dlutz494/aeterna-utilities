@@ -1,5 +1,5 @@
 <script setup>
-import { Link } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 import GuestLayout from '@/Layouts/GuestLayout.vue';
 
 const props = defineProps(
@@ -19,6 +19,7 @@ const props = defineProps(
 </script>
 
 <template>
+    <Head title="Encounters Index"/>
     <GuestLayout>
         <Link
             :href="route('generator.admin')"
