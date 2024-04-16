@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ContextController;
 use App\Http\Controllers\EncounterController;
-use App\Http\Controllers\GeneratorAdminController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\GeneratorController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -28,6 +28,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/admin', AdminController::class)->name('admin');
+
 Route::get('/contexts', [ContextController::class, 'index'])->name('context.index');
 Route::get('/context', [ContextController::class, 'create'])->name('context.create');
 Route::post('/context', [ContextController::class, 'doCreate'])->name('context.doCreate');
@@ -43,6 +45,5 @@ Route::post('/encounter/{encounter}', [EncounterController::class, 'doEdit'])->n
 Route::delete('/encounter/{encounter}', [EncounterController::class, 'doDelete'])->name('encounter.delete');
 
 Route::get('/generator', GeneratorController::class)->name('generator');
-Route::get('/generator-admin', GeneratorAdminController::class)->name('generator.admin');
 
 require __DIR__ . '/auth.php';

@@ -28,8 +28,8 @@ function handleImageError () {
 </script>
 
 <template>
-    <Head title="Welcome"/>
-    <DefaultLayout header="Welcome">
+    <Head title="Home"/>
+    <DefaultLayout header="Home" selected-page="Home">
         <menu class="flex flex-col text-center items-center">
             <Link
                 :href="route('generator')"

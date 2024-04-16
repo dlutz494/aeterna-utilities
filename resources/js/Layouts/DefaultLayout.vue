@@ -1,9 +1,13 @@
 <script setup>
-import NavLink from '@/Components/NavLink.vue';
+import { Link } from '@inertiajs/vue3';
 import { onBeforeMount, ref } from 'vue';
 
 const props = defineProps({
     header: {
+        type: String,
+        default: ''
+    },
+    selectedPage: {
         type: String,
         default: ''
     }
@@ -33,6 +37,9 @@ const toggleTheme = () => {
     }
 };
 
+// Selected page
+const selectedPage = ref('');
+
 onBeforeMount(() => {
     // Set the theme
     if (localStorage.getItem('theme') === 'dark') setDarkMode();
@@ -41,12 +48,27 @@ onBeforeMount(() => {
 </script>
 
 <template>
-    <header class="grid grid-cols-2 items-center gap-2 pt-10 lg:grid-cols-3">
-        <nav class="w-full mx-3 flex flex-1 justify-end">
-            <NavLink :href="route('welcome')">Home</NavLink>
-            <NavLink :href="route('generator')">Generator</NavLink>
-            <NavLink :href="route('generator.admin')">Generator Admin Panel</NavLink>
-            <button type="button" @click="toggleTheme" class="text-black dark:text-white items-end">Toggle Dark Mode:
+    <header class="pt-10 grid place-items-center">
+        <nav class="mx-3 flex flex-1 text-black dark:text-white">
+            <Link
+                :href="route('welcome')"
+                class="mx-2 border-2 rounded p-1 bg-blue-200 dark:bg-blue-700"
+                :class="{ 'border-blue-500': props.selectedPage === 'Home' }"
+            >Home
+            </Link>
+            <Link
+                :href="route('generator')"
+                class="mx-2 border-2 rounded p-1 bg-blue-200 dark:bg-blue-700"
+                :class="{ 'border-blue-500': props.selectedPage === 'Generator' }"
+            >Generator
+            </Link>
+            <Link
+                :href="route('admin')"
+                class="mx-2 border-2 rounded p-1 bg-blue-200 dark:bg-blue-700"
+                :class="{ 'border-blue-500': props.selectedPage === 'Admin' }"
+            >Admin Panel
+            </Link>
+            <button type="button" @click="toggleTheme" class="text-black dark:text-white">Toggle Dark Mode:
                 {{ darkMode.valueOf() ? 'Dark' : 'Light' }}
             </button>
         </nav>
@@ -59,7 +81,7 @@ onBeforeMount(() => {
         <slot/>
     </main>
 
-    <footer class="py-16 text-center text-sm text-black dark:text-white/70">
+    <footer class="py-8 text-center text-sm text-black dark:text-white/70">
         &copy; 2024 David Lutz
     </footer>
 </template>

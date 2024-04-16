@@ -1,5 +1,5 @@
 <script setup>
-import { Head, Link } from '@inertiajs/vue3';
+import { Head } from '@inertiajs/vue3';
 import { computed, reactive, ref } from 'vue';
 import EncounterTable from '@/Pages/EncounterGenerator/EncounterTable.vue';
 import GeneratorResult from '@/Pages/EncounterGenerator/GeneratorResult.vue';
@@ -36,15 +36,8 @@ const selectContext = (context) => {
 
 <template>
     <Head title="Random Encounter Generator"/>
-    <DefaultLayout header="Generator">
+    <DefaultLayout header="Generator" selected-page="Generator">
         <div class="grid place-items-center">
-            <Link
-                class="bg-blue-200 dark:bg-blue-800 text-black dark:text-white w-1/2 mb-2 rounded"
-                :href="route('generator.admin')"
-            >
-                Admin Panel
-            </Link>
-
             <EncounterSelector
                 class="mb-2"
                 :encounter-contexts="encounterContexts"
