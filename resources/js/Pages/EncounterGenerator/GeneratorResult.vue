@@ -16,20 +16,21 @@ const emit = defineEmits(['generate:encounter']);
 
 <template>
     <button
-        class="dark:text-white dark:bg-gray-600 rounded p-1 active:bg-gray-700 hover:bg-gray-500 mb-2"
+        class="rounded py-1 px-2 mb-2 text-black bg-gray-200 hover:bg-gray-100 active:bg-gray-300
+        dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500 dark:active:bg-gray-700"
         @click="emit('generate:encounter')"
     >Generate Random Encounter
     </button>
     <input
         id="result-title"
         type="text"
-        class="w-full"
+        class="w-1/2"
         :value="result.title"
         disabled
     >
     <textarea
         id="result-description"
-        class="w-full h-24"
+        class="w-1/2 h-24"
         :value="result.description"
         disabled
     ></textarea>
