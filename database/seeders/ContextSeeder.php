@@ -9,12 +9,14 @@ class ContextSeeder extends Seeder
 {
     public function run(): void
     {
-        $contexts = [
-            'First Place',
-            'Second Place',
+        $titles = [
+            'Forest',
+            'Desert',
+            'Tundra',
+            'Urban',
         ];
 
-        foreach ($contexts as $title) {
+        foreach ($titles as $title) {
             Context::factory()->create([
                 'title' => $title,
             ]);
