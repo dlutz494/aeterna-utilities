@@ -36,10 +36,10 @@ const selectContext = (context) => {
 
 <template>
     <Head title="Random Encounter Generator"/>
-    <DefaultLayout>
-        <div class="grid">
+    <DefaultLayout header="Generator">
+        <div class="grid place-items-center">
             <Link
-                class="text-white bg-gray-600 rounded p-1 active:bg-gray-700 hover:bg-gray-500 mb-2 text-center"
+                class="bg-blue-200 dark:bg-blue-800 text-black dark:text-white w-1/2 mb-2 rounded"
                 :href="route('generator.admin')"
             >
                 Admin Panel

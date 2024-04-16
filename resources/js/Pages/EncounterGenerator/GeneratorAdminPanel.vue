@@ -6,24 +6,20 @@ import DefaultLayout from '@/Layouts/DefaultLayout.vue';
 <template>
     <Head title="Encounter Generator Admin Panel"/>
 
-    <DefaultLayout>
-        <Link
-            :href="route('generator')"
-            class="bg-gray-900 m-2 rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-        >
-            Encounter Generator
-        </Link>
-        <Link
-            class="bg-gray-900 m-2 rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-            :href="route('encounter.index')"
-        >
-            Encounters
-        </Link>
-        <Link
-            class="bg-gray-900 m-2 rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-            :href="route('context.index')"
-        >
-            Contexts
-        </Link>
+    <DefaultLayout header="Generator Admin Panel">
+        <menu class="flex flex-col flex-1 items-center">
+            <Link
+                class="bg-blue-200 dark:bg-blue-800 text-black dark:text-white w-1/2 mb-2"
+                :href="route('encounter.index')"
+            >
+                Encounters
+            </Link>
+            <Link
+                class="bg-blue-200 dark:bg-blue-800 text-black dark:text-white w-1/2 mb-2"
+                :href="route('context.index')"
+            >
+                Contexts
+            </Link>
+        </menu>
     </DefaultLayout>
 </template>

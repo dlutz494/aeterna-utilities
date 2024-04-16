@@ -2,6 +2,14 @@
 import NavLink from '@/Components/NavLink.vue';
 import { onBeforeMount, ref } from 'vue';
 
+const props = defineProps({
+    header: {
+        type: String,
+        default: ''
+    }
+});
+
+// Dark mode
 const darkMode = ref(false);
 const setDarkMode = () => {
     darkMode.value = true;
@@ -13,9 +21,7 @@ const setLightMode = () => {
     localStorage.setItem('theme', 'light');
     document.querySelector('html').setAttribute('data-theme', 'light');
 };
-
 const toggleTheme = () => {
-    // Priority: localStorage > system setting
     if (localStorage.getItem('theme') === 'dark') {
         setLightMode();
     } else if (localStorage.getItem('theme') === 'light') {
@@ -28,7 +34,6 @@ const toggleTheme = () => {
 };
 
 onBeforeMount(() => {
-    // NOTE: https://dev.to/whitep4nth3r/the-best-lightdark-mode-theme-toggle-in-javascript-368f
     // Set the theme
     if (localStorage.getItem('theme') === 'dark') setDarkMode();
     else setLightMode();
@@ -36,18 +41,21 @@ onBeforeMount(() => {
 </script>
 
 <template>
-    <header class="grid grid-cols-2 items-center gap-2 py-10 lg:grid-cols-3">
-        <nav class="-mx-3 flex flex-1 justify-end">
+    <header class="grid grid-cols-2 items-center gap-2 pt-10 lg:grid-cols-3">
+        <nav class="w-full mx-3 flex flex-1 justify-end">
             <NavLink :href="route('welcome')">Home</NavLink>
             <NavLink :href="route('generator')">Generator</NavLink>
             <NavLink :href="route('generator.admin')">Generator Admin Panel</NavLink>
-            <button type="button" @click="toggleTheme" class="text-black dark:text-white">Toggle Dark Mode:
+            <button type="button" @click="toggleTheme" class="text-black dark:text-white items-end">Toggle Dark Mode:
                 {{ darkMode.valueOf() ? 'Dark' : 'Light' }}
             </button>
         </nav>
     </header>
 
-    <main>
+    <main class="align-middle text-center p-2">
+        <h1 v-if="header" class="justify-center pb-4 font-extrabold text-3xl text-black dark:text-white">{{
+                props.header
+            }}</h1>
         <slot/>
     </main>
 

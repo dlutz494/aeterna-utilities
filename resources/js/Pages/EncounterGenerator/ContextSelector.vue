@@ -17,7 +17,8 @@ onUpdated(() => selectContext());
 </script>
 
 <template>
-    <div class="grid col-span-full">
+    <div class="grid grid-cols-3">
+        <label for="context-selector" class="text-black dark:text-white col-span-1 my-2.5 mr-2">Context: </label>
         <select
             id="context-selector"
             @change="(e) => emit('select:context', e.target.value)"

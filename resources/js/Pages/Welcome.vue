@@ -29,14 +29,15 @@ function handleImageError () {
 
 <template>
     <Head title="Welcome"/>
-    <DefaultLayout>
-        <nav class="flex flex-col text-center items-center">
+    <DefaultLayout header="Welcome">
+        <menu class="flex flex-col text-center items-center">
             <Link
                 :href="route('generator')"
                 class="bg-blue-200 dark:bg-blue-800 text-black dark:text-white w-1/2 mb-2"
             >
                 Encounter Generator
             </Link>
-        </nav>
+        </menu>
+
     </DefaultLayout>
 </template>
