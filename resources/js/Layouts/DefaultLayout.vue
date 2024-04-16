@@ -15,15 +15,16 @@ const props = defineProps({
 
 // Dark mode
 const darkMode = ref(false);
+const htmlElement = document.querySelector('html');
 const setDarkMode = () => {
     darkMode.value = true;
     localStorage.setItem('theme', 'dark');
-    document.querySelector('html').setAttribute('data-theme', 'dark');
+    htmlElement.setAttribute('data-theme', 'dark');
 };
 const setLightMode = () => {
     darkMode.value = false;
     localStorage.setItem('theme', 'light');
-    document.querySelector('html').setAttribute('data-theme', 'light');
+    htmlElement.setAttribute('data-theme', 'light');
 };
 const toggleTheme = () => {
     if (localStorage.getItem('theme') === 'dark') {
