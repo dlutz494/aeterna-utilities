@@ -30,10 +30,10 @@ function handleImageError () {
 <template>
     <Head title="Home"/>
     <DefaultLayout header="Home" selected-page="Home">
-        <menu class="flex flex-col text-center items-center">
+        <menu class="flex flex-col items-center">
             <Link
                 :href="route('generator')"
-                class="bg-blue-200 dark:bg-blue-800 text-black dark:text-white w-1/2 mb-2"
+                class="bg-blue-200 dark:bg-blue-800 text-black dark:text-white w-1/2 mb-2 rounded py-1 px-2"
             >
                 Encounter Generator
             </Link>

@@ -49,40 +49,42 @@ onBeforeMount(() => {
 </script>
 
 <template>
-    <header class="pt-10 grid place-items-center">
-        <nav class="mx-3 flex flex-1 text-black dark:text-white">
-            <Link
-                :href="route('welcome')"
-                class="mx-2 border-2 rounded p-1 bg-blue-200 dark:bg-blue-700"
-                :class="{ 'border-blue-500': props.selectedPage === 'Home' }"
-            >Home
-            </Link>
-            <Link
-                :href="route('generator')"
-                class="mx-2 border-2 rounded p-1 bg-blue-200 dark:bg-blue-700"
-                :class="{ 'border-blue-500': props.selectedPage === 'Generator' }"
-            >Generator
-            </Link>
-            <Link
-                :href="route('admin')"
-                class="mx-2 border-2 rounded p-1 bg-blue-200 dark:bg-blue-700"
-                :class="{ 'border-blue-500': props.selectedPage === 'Admin' }"
-            >Admin Panel
-            </Link>
-            <button type="button" @click="toggleTheme" class="text-black dark:text-white">Toggle Dark Mode:
-                {{ darkMode.valueOf() ? 'Dark' : 'Light' }}
-            </button>
-        </nav>
-    </header>
+    <div class="min-h-screen">
+        <header class="pt-10 grid place-items-center">
+            <nav class="mx-3 flex flex-1 text-black dark:text-white">
+                <Link
+                    :href="route('welcome')"
+                    class="mx-2 border-2 rounded p-1 bg-blue-200 dark:bg-blue-700"
+                    :class="{ 'border-blue-500': props.selectedPage === 'Home' }"
+                >Home
+                </Link>
+                <Link
+                    :href="route('generator')"
+                    class="mx-2 border-2 rounded p-1 bg-blue-200 dark:bg-blue-700"
+                    :class="{ 'border-blue-500': props.selectedPage === 'Generator' }"
+                >Generator
+                </Link>
+                <Link
+                    :href="route('admin')"
+                    class="mx-2 border-2 rounded p-1 bg-blue-200 dark:bg-blue-700"
+                    :class="{ 'border-blue-500': props.selectedPage === 'Admin' }"
+                >Admin Panel
+                </Link>
+                <button type="button" @click="toggleTheme" class="text-black dark:text-white">Toggle Theme:
+                    {{ darkMode.valueOf() ? 'Dark' : 'Light' }}
+                </button>
+            </nav>
+        </header>
 
-    <main class="align-middle text-center p-2">
-        <h1 v-if="header" class="justify-center pb-4 font-extrabold text-3xl text-black dark:text-white">{{
-                props.header
-            }}</h1>
-        <slot/>
-    </main>
+        <main class="p-2 flex flex-col justify-center text-center min-h-80">
+            <h1 v-if="header" class="pb-4 font-extrabold text-3xl text-black dark:text-white">{{
+                    props.header
+                }}</h1>
+            <slot/>
+        </main>
 
-    <footer class="py-8 text-center text-sm text-black dark:text-white/70">
-        &copy; 2024 David Lutz
-    </footer>
+        <footer class="py-8 text-center text-sm text-black dark:text-white/70">
+            &copy; 2024 David Lutz
+        </footer>
+    </div>
 </template>
