@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class Encounter extends Model
 {
@@ -15,18 +16,21 @@ class Encounter extends Model
     protected $attributes = [
         'title'       => '',
         'description' => '',
-        'context_id'  => '',
     ];
 
     protected $fillable = [
         'title',
         'description',
-        'context_id',
     ];
 
-    public function context(): HasOne
+    public function context(): HasOneThrough
     {
-        return $this->hasOne(Context::class, 'id', 'context_id');
+        return $this->hasOneThrough(Context::class, Weight::class);
+    }
+
+    public function weight(): HasOne
+    {
+        return $this->hasOne(Weight::class);
     }
 
     protected function casts(): array
@@ -34,7 +38,6 @@ class Encounter extends Model
         return [
             'title'       => 'string',
             'description' => 'string',
-            'context_id'  => 'integer',
         ];
     }
 }

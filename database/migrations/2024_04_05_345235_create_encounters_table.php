@@ -15,7 +15,6 @@ return new class extends Migration {
             $table->id();
             $table->string('title');
             $table->longText('description');
-            $table->foreignIdFor(Context::class, 'context_id')->nullable();
             $table->timestamps();
         });
     }
