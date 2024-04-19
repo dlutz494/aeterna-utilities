@@ -9,18 +9,31 @@ import DefaultLayout from '@/Layouts/DefaultLayout.vue';
 // Setup
 const props = defineProps(
     {
-        encounters: { type: Object },
+        encounters: { type: Array },
         contexts: { type: Object }
     });
 
 // Encounter
 const selectedEncounter = reactive({});
 const filteredEncounters = computed(() => {
-    return props.encounters.filter((encounter) => encounter.context_id === selectedContext.value || encounter.context_id === null);
+    // Return encounters matching the selected context, sorted most to least likely based on weight
+    return props.encounters
+        .filter((encounter) => encounter.context?.id === selectedContext.value || encounter.context === null)
+        .sort((a, b) => a.weight - b.weight)
+        .reverse();
 });
 const getEncounter = () => {
-    const index = Math.floor(Math.random() * filteredEncounters.value.length);
-    selectedEncounter.value = filteredEncounters.value[index];
+    // create an array with a number of entries based on weight
+    let weightedEncounters = [];
+    // iterate over each encounter, adding it to the new array a number of times equal to the weight
+    filteredEncounters.value.forEach((encounter) => {
+        for (let i = 0; i < encounter.weight; i++) {
+            weightedEncounters.push(encounter);
+        }
+    });
+    // select a random index from that new array
+    const index = Math.floor(Math.random() * weightedEncounters.length);
+    selectedEncounter.value = weightedEncounters[index];
 };
 
 // Context

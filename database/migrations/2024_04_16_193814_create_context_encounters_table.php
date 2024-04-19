@@ -14,7 +14,7 @@ return new class extends Migration {
     {
         Schema::create('context_encounters', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Context::class);
+            $table->foreignIdFor(Context::class)->nullable();
             $table->foreignIdFor(Encounter::class);
             $table->integer('weight')->default(0);
             $table->timestamps();

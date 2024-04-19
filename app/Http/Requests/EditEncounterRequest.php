@@ -26,6 +26,7 @@ class EditEncounterRequest extends FormRequest
             ],
             'description' => ['required', 'string'],
             'context_id'  => ['nullable', 'integer', 'exists:contexts,id'],
+            'weight'      => ['required', 'integer', 'min:1'],
         ];
     }
 
@@ -40,6 +41,9 @@ class EditEncounterRequest extends FormRequest
             'description.string'   => 'The Description has to be a string',
             'context_id.integer'   => 'The Context has to be an integer',
             'context_id.exists'    => 'That Context does not exist',
+            'weight.required'      => 'A Weight is needed',
+            'weight.integer'       => 'The Weight has to be an integer',
+            'weight.min'           => 'The Weight has to be greater than 0',
         ];
     }
 }

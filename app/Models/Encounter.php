@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class Encounter extends Model
 {
@@ -23,14 +23,21 @@ class Encounter extends Model
         'description',
     ];
 
-    public function context(): HasOneThrough
+    protected static function booted(): void
     {
-        return $this->hasOneThrough(Context::class, Weight::class);
+        static::deleting(function ($encounter) {
+            $encounter->weight()->delete();
+        });
     }
 
     public function weight(): HasOne
     {
         return $this->hasOne(Weight::class);
+    }
+
+    public function contexts(): BelongsToMany
+    {
+        return $this->belongsToMany(Context::class, 'context_encounters');
     }
 
     protected function casts(): array

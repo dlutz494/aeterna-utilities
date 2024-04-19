@@ -10,6 +10,7 @@ const props = defineProps(
                 title: String,
                 description: String,
                 context: Object,
+                weight: Object,
                 edit_url: String,
                 delete_url: String
             }
@@ -41,6 +42,7 @@ const props = defineProps(
                 <th class="dark:text-white border border-slate-500">Title</th>
                 <th class="dark:text-white border border-slate-500">Description</th>
                 <th class="dark:text-white border border-slate-500">Context</th>
+                <th class="dark:text-white border border-slate-500">Weight</th>
                 <th class="dark:text-white border border-slate-500 italic font-light">Actions</th>
             </tr>
             </thead>
@@ -51,6 +53,7 @@ const props = defineProps(
                 <td class="dark:text-white pl-4 w-1/6 border border-slate-500 mx-1">
                     {{ encounter.context ? encounter.context.title : 'N/A' }}
                 </td>
+                <td class="dark:text-white pl-4 w-3/6 border border-slate-500 mx-1">{{ encounter.weight }}</td>
                 <td class="dark:text-gray-400 w-1/6 border border-slate-500 mx-1 text-nowrap">
                     <Link
                         class="dark:text-white bg-gray-700 hover:bg-gray-800 active:bg-gray-600 rounded p-1 m-0.5"

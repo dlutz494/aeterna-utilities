@@ -7,7 +7,6 @@ use App\Http\Requests\EditEncounterRequest;
 use App\Models\Context;
 use App\Models\Encounter;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -20,7 +19,8 @@ class EncounterController extends Controller
                 'id'          => $encounter->id,
                 'title'       => $encounter->title,
                 'description' => $encounter->description,
-                'context'     => $encounter->context,
+                'context'     => $encounter->contexts[0] ?? null,
+                'weight'      => $encounter->weight->weight,
                 'edit_url'    => route('encounter.edit', $encounter),
                 'delete_url'  => route('encounter.delete', $encounter),
             ];
@@ -37,7 +37,21 @@ class EncounterController extends Controller
 
     public function doCreate(CreateEncounterRequest $request): RedirectResponse
     {
-        Encounter::factory()->create($request->validated());
+        $encounter = Encounter::factory()->create($request->safe()->only([
+            'title',
+            'description',
+        ]));
+
+        if ($request->has(['weight', 'context_id'])) {
+            $encounter->weight()->create([
+                'weight'     => $request->validated('weight'),
+                'context_id' => $request->validated('context_id'),
+            ]);
+        } elseif ($request->has('weight')) {
+            $encounter->weight()->create([
+                'weight' => $request->validated('weight'),
+            ]);
+        }
 
         return to_route('encounter.index');
     }
@@ -52,7 +66,7 @@ class EncounterController extends Controller
         );
     }
 
-    public function doDelete(Request $request, Encounter $encounter): RedirectResponse
+    public function doDelete(Encounter $encounter): RedirectResponse
     {
         $encounter->delete();
 
@@ -65,6 +79,8 @@ class EncounterController extends Controller
             'EncounterGenerator/EditEncounter',
             [
                 'encounter' => $encounter,
+                'context'   => $encounter->contexts[0] ?? null,
+                'weight'    => $encounter->weight->weight,
                 'contexts'  => Context::all(),
             ]
         );
@@ -72,7 +88,21 @@ class EncounterController extends Controller
 
     public function doEdit(EditEncounterRequest $request, Encounter $encounter): RedirectResponse
     {
-        $encounter->update($request->validated());
+        $encounter->update($request->safe()->only([
+            'title',
+            'description',
+        ]));
+
+        if ($request->has(['weight', 'context_id'])) {
+            $encounter->weight()->update([
+                'weight'     => $request->validated('weight'),
+                'context_id' => $request->validated('context_id'),
+            ]);
+        } elseif ($request->has('weight')) {
+            $encounter->weight()->update([
+                'weight' => $request->validated('weight'),
+            ]);
+        }
 
         return to_route('encounter.index');
     }

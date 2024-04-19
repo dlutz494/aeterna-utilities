@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Context;
 use App\Models\Encounter;
 use Illuminate\Database\Seeder;
 
@@ -15,9 +16,9 @@ class EncounterSeeder extends Seeder
             'Skeletons' => 'A group of skeletons shamble nearby.',
         ];
         $desertEncounters   = [
-            'Scorpions'       => 'A large body of scorpions emerges from the sand around you.',
-            'Giant Scorpions' => 'Sand moves nearby and giant scorpions spring out to attack.',
-            'Skeletons'       => 'A pharaoh and their servants from a long-dead civilizations arise from their sandy graves.',
+            'Scorpions'   => 'A large body of scorpions emerges from the sand around you.',
+            'Giant Worms' => 'Sand moves nearby and a giant worm springs out to attack.',
+            'Skeletons'   => 'A pharaoh and their servants from a long-dead civilizations arise from their sandy graves.',
         ];
         $tundraEncounters   = [
             'Wolves'          => 'A pack of wolves have surrounded you.',
@@ -38,35 +39,40 @@ class EncounterSeeder extends Seeder
             Encounter::factory()->create([
                 'title'       => $title,
                 'description' => $description,
-                'context_id'  => 1,
+            ])->contexts()->attach(Context::find(1), [
+                'weight' => 5,
             ]);
         }
         foreach ($desertEncounters as $title => $description) {
             Encounter::factory()->create([
                 'title'       => $title,
                 'description' => $description,
-                'context_id'  => 2,
+            ])->contexts()->attach(Context::find(2), [
+                'weight' => 5,
             ]);
         }
         foreach ($tundraEncounters as $title => $description) {
             Encounter::factory()->create([
                 'title'       => $title,
                 'description' => $description,
-                'context_id'  => 3,
+            ])->contexts()->attach(Context::find(3), [
+                'weight' => 5,
             ]);
         }
         foreach ($urbanEncounters as $title => $description) {
             Encounter::factory()->create([
                 'title'       => $title,
                 'description' => $description,
-                'context_id'  => 4,
+            ])->contexts()->attach(Context::find(4), [
+                'weight' => 5,
             ]);
         }
         foreach ($anywhereEncounters as $title => $description) {
             Encounter::factory()->create([
                 'title'       => $title,
                 'description' => $description,
-                'context_id'  => null,
+            ])->weight()->create([
+                'weight' => 1,
             ]);
         }
     }

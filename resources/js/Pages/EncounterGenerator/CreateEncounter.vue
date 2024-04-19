@@ -13,7 +13,8 @@ const props = defineProps([
 const form = useForm({
     title: null,
     description: null,
-    context_id: null
+    context_id: null,
+    weight: null
 });
 
 function submit () {
@@ -51,6 +52,12 @@ function submit () {
                 :options="contexts"
                 v-model:field-value="form.context_id"
                 v-model:errors="form.errors.context_id"
+            />
+            <TextInput
+                field-key="weight"
+                field-title="Weight"
+                v-model:field-value="form.weight"
+                v-model:errors="form.errors.weight"
             />
             <button type="submit"
                     class="text-white bg-gray-600 rounded p-1 active:bg-gray-700 col-span-2 m-1 mt-2"

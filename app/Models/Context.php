@@ -20,9 +20,9 @@ class Context extends Model
         'title',
     ];
 
-    public function encounter(): BelongsToMany
+    public function encounters(): BelongsToMany
     {
-        return $this->belongsToMany(Encounter::class);
+        return $this->belongsToMany(Encounter::class, 'context_encounters');
     }
 
     protected function casts(): array

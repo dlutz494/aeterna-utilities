@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Context;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class EncounterFactory extends Factory
@@ -12,7 +11,6 @@ class EncounterFactory extends Factory
         return [
             'title'       => $this->faker->text(100),
             'description' => $this->faker->realTextBetween(100),
-            'context_id'  => Context::factory(),
         ];
     }
 }

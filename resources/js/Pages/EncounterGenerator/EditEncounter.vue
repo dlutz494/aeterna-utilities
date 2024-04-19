@@ -8,6 +8,8 @@ import DropdownInput from '@/Components/Custom/DropdownInput.vue';
 // Props
 const props = defineProps([
     'encounter',
+    'context',
+    'weight',
     'contexts'
 ]);
 
@@ -15,7 +17,8 @@ const props = defineProps([
 const form = useForm({
     title: props.encounter.title,
     description: props.encounter.description,
-    context_id: props.encounter.context_id
+    context_id: props.context?.id ?? null,
+    weight: props.weight
 });
 
 function submit () {
@@ -53,6 +56,12 @@ function submit () {
                 :options="contexts"
                 v-model:field-value="form.context_id"
                 v-model:errors="form.errors.context_id"
+            />
+            <TextInput
+                field-key="weight"
+                field-title="Weight"
+                v-model:field-value="form.weight"
+                v-model:errors="form.errors.weight"
             />
             <button type="submit"
                     class="text-white bg-gray-600 rounded p-1 active:bg-gray-700 hover:bg-gray-500 col-span-2 m-1 mt-2"
