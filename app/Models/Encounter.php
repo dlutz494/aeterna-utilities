@@ -23,11 +23,9 @@ class Encounter extends Model
         'description',
     ];
 
-    protected static function booted(): void
+    public function getWeightAttribute()
     {
-        static::deleting(function ($encounter) {
-            $encounter->weight()->delete();
-        });
+        return $this->contextEncounter->weight;
     }
 
     public function contextEncounter(): HasOne

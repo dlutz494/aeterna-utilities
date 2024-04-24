@@ -19,7 +19,7 @@ class GeneratorController extends Controller
                     'title'       => $encounter->title,
                     'description' => $encounter->description,
                     'context'     => $encounter->contexts[0] ?? null,
-                    'weight'      => $encounter->weight->weight,
+                    'weight'      => $encounter->weight,
                 ];
             }),
             'contexts'   => Context::all(),

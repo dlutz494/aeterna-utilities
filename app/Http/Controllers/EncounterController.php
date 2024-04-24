@@ -20,7 +20,7 @@ class EncounterController extends Controller
                 'title'       => $encounter->title,
                 'description' => $encounter->description,
                 'context'     => $encounter->contexts[0] ?? null,
-                'weight'      => $encounter->weight->weight,
+                'weight'      => $encounter->weight,
                 'edit_url'    => route('encounter.edit', $encounter),
                 'delete_url'  => route('encounter.delete', $encounter),
             ];
@@ -43,12 +43,12 @@ class EncounterController extends Controller
         ]));
 
         if ($request->has(['weight', 'context_id'])) {
-            $encounter->weight()->create([
+            $encounter->contextEncounter()->create([
                 'weight'     => $request->validated('weight'),
                 'context_id' => $request->validated('context_id'),
             ]);
         } elseif ($request->has('weight')) {
-            $encounter->weight()->create([
+            $encounter->contextEncounter()->create([
                 'weight' => $request->validated('weight'),
             ]);
         }
@@ -94,12 +94,12 @@ class EncounterController extends Controller
         ]));
 
         if ($request->has(['weight', 'context_id'])) {
-            $encounter->weight()->update([
+            $encounter->contextEncounter()->update([
                 'weight'     => $request->validated('weight'),
                 'context_id' => $request->validated('context_id'),
             ]);
         } elseif ($request->has('weight')) {
-            $encounter->weight()->update([
+            $encounter->contextEncounter()->update([
                 'weight' => $request->validated('weight'),
             ]);
         }

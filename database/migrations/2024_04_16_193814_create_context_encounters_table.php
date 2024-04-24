@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Context;
-use App\Models\Encounter;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,7 +14,7 @@ return new class extends Migration {
         Schema::create('context_encounters', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Context::class)->nullable();
-            $table->foreignIdFor(Encounter::class);
+            $table->foreignId('encounter_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->integer('weight')->default(0);
             $table->timestamps();
         });
