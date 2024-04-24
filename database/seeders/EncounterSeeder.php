@@ -71,7 +71,7 @@ class EncounterSeeder extends Seeder
             Encounter::factory()->create([
                 'title'       => $title,
                 'description' => $description,
-            ])->weight()->create([
+            ])->contextEncounter()->create([
                 'weight' => 1,
             ]);
         }

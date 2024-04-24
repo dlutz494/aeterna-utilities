@@ -30,9 +30,9 @@ class Encounter extends Model
         });
     }
 
-    public function weight(): HasOne
+    public function contextEncounter(): HasOne
     {
-        return $this->hasOne(Weight::class);
+        return $this->hasOne(ContextEncounter::class);
     }
 
     public function contexts(): BelongsToMany
