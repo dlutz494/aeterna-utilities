@@ -40,7 +40,7 @@ class EncounterSeeder extends Seeder
                 'title'       => $title,
                 'description' => $description,
             ])->contexts()->attach(Context::find(1), [
-                'weight' => 5,
+                'weight' => rand(2, 10),
             ]);
         }
         foreach ($desertEncounters as $title => $description) {
@@ -48,7 +48,7 @@ class EncounterSeeder extends Seeder
                 'title'       => $title,
                 'description' => $description,
             ])->contexts()->attach(Context::find(2), [
-                'weight' => 5,
+                'weight' => rand(2, 10),
             ]);
         }
         foreach ($tundraEncounters as $title => $description) {
@@ -56,7 +56,7 @@ class EncounterSeeder extends Seeder
                 'title'       => $title,
                 'description' => $description,
             ])->contexts()->attach(Context::find(3), [
-                'weight' => 5,
+                'weight' => rand(2, 10),
             ]);
         }
         foreach ($urbanEncounters as $title => $description) {
@@ -64,7 +64,7 @@ class EncounterSeeder extends Seeder
                 'title'       => $title,
                 'description' => $description,
             ])->contexts()->attach(Context::find(4), [
-                'weight' => 5,
+                'weight' => rand(2, 10),
             ]);
         }
         foreach ($anywhereEncounters as $title => $description) {
