@@ -42,12 +42,12 @@ class EncounterController extends Controller
             'description',
         ]));
 
-        if ($request->has(['weight', 'context_id'])) {
+        if ($request->has('context_id')) {
             $encounter->contextEncounter()->create([
                 'weight'     => $request->validated('weight'),
                 'context_id' => $request->validated('context_id'),
             ]);
-        } elseif ($request->has('weight')) {
+        } else {
             $encounter->contextEncounter()->create([
                 'weight' => $request->validated('weight'),
             ]);
