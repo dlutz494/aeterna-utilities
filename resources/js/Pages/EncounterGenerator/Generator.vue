@@ -13,21 +13,18 @@ const props = defineProps(
         contexts: { type: Object }
     });
 
-// Encounter
+// Encounters
 const selectedEncounter = reactive({});
 const filteredEncounters = computed(() => {
-    // filter the encounters
     let encounters = props.encounters
         .filter((encounter) => encounter.context?.id === selectedContext.value || encounter.context === null)
         .sort((a, b) => a.weight - b.weight)
         .reverse();
 
-    // get the combined weight of the encounters and use that to determine percentage per weight
     let totalWeight = 0;
     encounters.forEach((encounter) => totalWeight += encounter.weight);
     const percentage = 100 / totalWeight;
 
-    // replace the weight with the new percentage to be displayed
     return encounters.map((encounter) => ({
         title: encounter.title,
         description: encounter.description,
@@ -45,7 +42,7 @@ const getEncounter = () => {
     selectedEncounter.value = weightedEncounters[index];
 };
 
-// Context
+// Contexts
 const selectedContext = ref(0);
 const encounterContexts = computed(() => {
     return props.contexts;
