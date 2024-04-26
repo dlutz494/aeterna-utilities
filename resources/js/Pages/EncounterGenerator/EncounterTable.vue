@@ -10,7 +10,7 @@ const props = defineProps(
     <table class="mb-4 border border-slate-500">
         <thead class="bg-gray-400 dark:bg-gray-950">
         <tr>
-            <th class="dark:text-white border border-slate-500">Weight</th>
+            <th class="dark:text-white border border-slate-500">% Chance</th>
             <th class="dark:text-white border border-slate-500">Title</th>
             <th class="dark:text-white border border-slate-500">Description</th>
         </tr>

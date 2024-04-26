@@ -16,22 +16,31 @@ const props = defineProps(
 // Encounter
 const selectedEncounter = reactive({});
 const filteredEncounters = computed(() => {
-    // Return encounters matching the selected context, sorted most to least likely based on weight
-    return props.encounters
+    // filter the encounters
+    let encounters = props.encounters
         .filter((encounter) => encounter.context?.id === selectedContext.value || encounter.context === null)
         .sort((a, b) => a.weight - b.weight)
         .reverse();
+
+    // get the combined weight of the encounters and use that to determine percentage per weight
+    let totalWeight = 0;
+    encounters.forEach((encounter) => totalWeight += encounter.weight);
+    const percentage = 100 / totalWeight;
+
+    // replace the weight with the new percentage to be displayed
+    return encounters.map((encounter) => ({
+        title: encounter.title,
+        description: encounter.description,
+        weight: (encounter.weight * percentage).toFixed(2)
+    }));
 });
 const getEncounter = () => {
-    // create an array with a number of entries based on weight
     let weightedEncounters = [];
-    // iterate over each encounter, adding it to the new array a number of times equal to the weight
     filteredEncounters.value.forEach((encounter) => {
         for (let i = 0; i < encounter.weight; i++) {
             weightedEncounters.push(encounter);
         }
     });
-    // select a random index from that new array
     const index = Math.floor(Math.random() * weightedEncounters.length);
     selectedEncounter.value = weightedEncounters[index];
 };
