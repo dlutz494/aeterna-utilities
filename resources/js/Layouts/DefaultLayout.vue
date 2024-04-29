@@ -50,8 +50,8 @@ onBeforeMount(() => {
 
 <template>
     <div class="min-h-screen">
-        <header class="pt-10">
-            <nav class="mx-3 flex flex-1 justify-between text-black dark:text-white">
+        <header class="pt-10 px-10">
+            <nav class="flex flex-1 justify-between text-black dark:text-white">
                 <div>
                     <Link
                         :href="route('welcome')"
