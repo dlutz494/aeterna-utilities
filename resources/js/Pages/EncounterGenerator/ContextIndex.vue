@@ -20,13 +20,6 @@ const props = defineProps(
     <Head title="Context Index"/>
     <DefaultLayout header="Contexts">
         <Link
-            :href="route('admin')"
-            class="rounded py-1 px-2 mb-2 text-black bg-gray-200 hover:bg-gray-100 active:bg-gray-300 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500 dark:active:bg-gray-700"
-        >
-            Admin Panel
-        </Link>
-
-        <Link
             :href="create_url"
             class="rounded py-1 px-2 mb-2 text-black bg-gray-200 hover:bg-gray-100 active:bg-gray-300 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500 dark:active:bg-gray-700"
         >
