@@ -50,27 +50,30 @@ onBeforeMount(() => {
 
 <template>
     <div class="min-h-screen">
-        <header class="pt-10 grid place-items-center">
-            <nav class="mx-3 flex flex-1 text-black dark:text-white">
-                <Link
-                    :href="route('welcome')"
-                    class="mx-2 border-2 rounded p-1 bg-blue-200 dark:bg-blue-700"
-                    :class="{ 'border-blue-500': props.selectedPage === 'Home' }"
-                >Home
-                </Link>
-                <Link
-                    :href="route('generator')"
-                    class="mx-2 border-2 rounded p-1 bg-blue-200 dark:bg-blue-700"
-                    :class="{ 'border-blue-500': props.selectedPage === 'Generator' }"
-                >Generator
-                </Link>
-                <Link
-                    :href="route('admin')"
-                    class="mx-2 border-2 rounded p-1 bg-blue-200 dark:bg-blue-700"
-                    :class="{ 'border-blue-500': props.selectedPage === 'Admin' }"
-                >Admin Panel
-                </Link>
-                <button type="button" @click="toggleTheme" class="text-black dark:text-white">Toggle Theme:
+        <header class="pt-10">
+            <nav class="mx-3 flex flex-1 justify-between text-black dark:text-white">
+                <div>
+                    <Link
+                        :href="route('welcome')"
+                        class="mx-2 border-2 rounded p-1 bg-blue-200 dark:bg-blue-700"
+                        :class="{ 'border-blue-500': props.selectedPage === 'Home' }"
+                    >Home
+                    </Link>
+                    <Link
+                        :href="route('generator')"
+                        class="mx-2 border-2 rounded p-1 bg-blue-200 dark:bg-blue-700"
+                        :class="{ 'border-blue-500': props.selectedPage === 'Generator' }"
+                    >Generator
+                    </Link>
+                    <Link
+                        :href="route('admin')"
+                        class="mx-2 border-2 rounded p-1 bg-blue-200 dark:bg-blue-700"
+                        :class="{ 'border-blue-500': props.selectedPage === 'Admin' }"
+                    >Admin Panel
+                    </Link>
+                </div>
+                <button type="button" @click="toggleTheme" class="text-black dark:text-white justify-self-end">Toggle
+                    Theme:
                     {{ darkMode.valueOf() ? 'Dark' : 'Light' }}
                 </button>
             </nav>
