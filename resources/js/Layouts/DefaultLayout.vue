@@ -57,20 +57,17 @@ onBeforeMount(() => {
                         :href="route('welcome')"
                         class="mx-2 border-2 rounded p-1 bg-blue-200 dark:bg-blue-700"
                         :class="{ 'border-blue-500': props.selectedPage === 'Home' }"
-                    >Home
-                    </Link>
+                    >Home</Link>
                     <Link
                         :href="route('generator')"
                         class="mx-2 border-2 rounded p-1 bg-blue-200 dark:bg-blue-700"
                         :class="{ 'border-blue-500': props.selectedPage === 'Generator' }"
-                    >Generator
-                    </Link>
+                    >Generator</Link>
                     <Link
                         :href="route('admin')"
                         class="mx-2 border-2 rounded p-1 bg-blue-200 dark:bg-blue-700"
                         :class="{ 'border-blue-500': props.selectedPage === 'Admin' }"
-                    >Admin Panel
-                    </Link>
+                    >Admin Panel</Link>
                 </div>
                 <button type="button" @click="toggleTheme" class="text-black dark:text-white justify-self-end">Toggle
                     Theme:
