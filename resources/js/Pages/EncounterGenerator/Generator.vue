@@ -28,7 +28,7 @@ const filteredEncounters = computed(() => {
     return encounters.map((encounter) => ({
         title: encounter.title,
         description: encounter.description,
-        weight: (encounter.weight * percentage).toFixed(2)
+        weight: (encounter.weight * percentage).toFixed(0)
     }));
 });
 const getEncounter = () => {
