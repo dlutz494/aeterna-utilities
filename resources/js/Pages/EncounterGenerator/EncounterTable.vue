@@ -9,26 +9,29 @@ const props = defineProps(
 
 const selectedDie = ref('0');
 const dieWeightedEncounters = computed(() => {
-    // just like with percentage, make an array of size selectedDie and fill it with the options
-    // Have checks beforehand to ensure number of options is the same or more than the die
-
     if (selectedDie.value === '0') {
         return props.encounters;
     }
 
     let range = 1;
-    let maxRange = parseInt(selectedDie.value);
+    let dieRange = parseInt(selectedDie.value);
     return props.encounters.map((encounter) => {
-        let weight = Math.floor((encounter.weight / 100) * maxRange);
+        let weight = Math.max(Math.floor((encounter.weight / 100) * dieRange), 1);
         let displayRange;
-        if (weight === 0) {
-            displayRange = range;
-            range += 1;
-        } else if (weight === 1) {
-            displayRange = range + '-' + (range + weight);
+        if (range > dieRange) return;
+        if (weight === 1) {
+            if ((range + weight) > dieRange) {
+                displayRange = range;
+            } else {
+                displayRange = range + '-' + (range + weight);
+            }
             range += 2;
         } else {
-            displayRange = range + '-' + (range + weight - 1);
+            if ((range + weight - 1) > dieRange) {
+                displayRange = range;
+            } else {
+                displayRange = range + '-' + (range + weight - 1);
+            }
             range += weight;
         }
 
@@ -37,6 +40,8 @@ const dieWeightedEncounters = computed(() => {
             description: encounter.description,
             weight: displayRange
         };
+    }).filter(encounter => {
+        return encounter;
     });
 });
 </script>
@@ -48,10 +53,10 @@ const dieWeightedEncounters = computed(() => {
             <th class="dark:text-white border border-slate-500">
                 <select name="dice" v-model="selectedDie" class="dark:bg-black w-full text-center">
                     <option value="0" selected>Chance</option>
-<!--                    <option value="4">d4</option>-->
-<!--                    <option value="6">d6</option>-->
-<!--                    <option value="8">d8</option>-->
-<!--                    <option value="10">d10</option>-->
+                    <!--                    <option value="4">d4</option>-->
+                    <!--                    <option value="6">d6</option>-->
+                    <!--                    <option value="8">d8</option>-->
+                    <option value="10">d10</option>
                     <option value="12">d12</option>
                     <option value="20">d20</option>
                     <option value="100">d100</option>
