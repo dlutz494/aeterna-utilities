@@ -12,8 +12,12 @@ export default {
 
     theme: {
         extend: {
+            backgroundImage: {
+                'site-body': "url('images/background_texture.png')",
+            },
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                // sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Roboto', 'Helvetica', 'sans-serif', ...defaultTheme.fontFamily.sans],
             },
         },
     },

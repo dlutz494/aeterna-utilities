@@ -50,40 +50,46 @@ onBeforeMount(() => {
 
 <template>
     <div class="min-h-screen">
-        <header class="pt-10 px-10">
-            <nav class="flex flex-1 justify-between text-black dark:text-white">
-                <div>
+        <header class="w-full">
+            <h1 v-if="header"
+                class="py-4 w-full text-center font-extrabold text-3xl text-white border-b-2 border-b-red-600 bg-black">{{
+                    props.header
+                }}</h1>
+            <nav class="flex flex-1 py-2 px-32 justify-between bg-gray-800">
+                <div class="w-1/3 flex text-center">
                     <Link
                         :href="route('welcome')"
-                        class="mx-2 border-2 rounded p-1 bg-blue-200 dark:bg-blue-700"
+                        class="mx-2 p-1 text-gray-300 hover:text-white"
                         :class="{ 'border-blue-500': props.selectedPage === 'Home' }"
-                    >Home</Link>
+                    >Home
+                    </Link>
                     <Link
                         :href="route('generator')"
-                        class="mx-2 border-2 rounded p-1 bg-blue-200 dark:bg-blue-700"
+                        class="mx-2 p-1 text-gray-300 hover:text-white"
                         :class="{ 'border-blue-500': props.selectedPage === 'Generator' }"
-                    >Generator</Link>
+                    >Generator
+                    </Link>
                     <Link
                         :href="route('admin')"
-                        class="mx-2 border-2 rounded p-1 bg-blue-200 dark:bg-blue-700"
+                        class="mx-2 p-1 text-gray-300 hover:text-white"
                         :class="{ 'border-blue-500': props.selectedPage === 'Admin' }"
-                    >Admin Panel</Link>
+                    >Admin Panel
+                    </Link>
                 </div>
-                <button type="button" @click="toggleTheme" class="text-black dark:text-white justify-self-end">Toggle
+
+                <button type="button" @click="toggleTheme" class="w-1/3 text-end text-white justify-self-end">Toggle
                     Theme:
                     {{ darkMode.valueOf() ? 'Dark' : 'Light' }}
                 </button>
             </nav>
         </header>
 
-        <main class="p-2 flex flex-col justify-center text-center min-h-80">
-            <h1 v-if="header" class="pb-4 font-extrabold text-3xl text-black dark:text-white">{{
-                    props.header
-                }}</h1>
+        <main
+            class="pt-20 px-2 flex flex-col text-center">
             <slot/>
         </main>
 
-        <footer class="py-8 text-center text-sm text-black dark:text-white/70">
+        <footer class="py-4 text-center text-sm text-white/70 bg-black sticky top-[100vh]">
             &copy; 2024 David Lutz
         </footer>
     </div>
