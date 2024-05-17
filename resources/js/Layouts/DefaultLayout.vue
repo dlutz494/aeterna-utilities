@@ -52,32 +52,32 @@ onBeforeMount(() => {
     <div class="min-h-screen">
         <header class="w-full">
             <h1 v-if="header"
-                class="py-4 w-full text-center font-extrabold text-3xl text-white border-b-2 border-b-red-600 bg-black">{{
+                class="py-3.5 w-full text-center font-extrabold text-3xl text-white border-b border-b-red-600 bg-black">{{
                     props.header
                 }}</h1>
-            <nav class="flex flex-1 py-2 px-32 justify-between bg-gray-800">
+            <nav class="flex flex-1 py-2 px-32 justify-between bg-stone-800 text-gray-300">
                 <div class="w-1/3 flex text-center">
                     <Link
                         :href="route('welcome')"
-                        class="mx-2 p-1 text-gray-300 hover:text-white"
+                        class="mx-2 p-1 hover:text-white"
                         :class="{ 'border-blue-500': props.selectedPage === 'Home' }"
                     >Home
                     </Link>
                     <Link
                         :href="route('generator')"
-                        class="mx-2 p-1 text-gray-300 hover:text-white"
+                        class="mx-2 p-1 hover:text-white"
                         :class="{ 'border-blue-500': props.selectedPage === 'Generator' }"
                     >Generator
                     </Link>
                     <Link
                         :href="route('admin')"
-                        class="mx-2 p-1 text-gray-300 hover:text-white"
+                        class="mx-2 p-1 hover:text-white"
                         :class="{ 'border-blue-500': props.selectedPage === 'Admin' }"
                     >Admin Panel
                     </Link>
                 </div>
 
-                <button type="button" @click="toggleTheme" class="w-1/3 text-end text-white justify-self-end">Toggle
+                <button type="button" @click="toggleTheme" class="text-end hover:text-white">Toggle
                     Theme:
                     {{ darkMode.valueOf() ? 'Dark' : 'Light' }}
                 </button>
@@ -85,7 +85,7 @@ onBeforeMount(() => {
         </header>
 
         <main
-            class="pt-20 px-2 flex flex-col text-center">
+            class="pt-6 px-2 flex flex-col text-center">
             <slot/>
         </main>
 

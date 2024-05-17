@@ -17,12 +17,12 @@ onUpdated(() => selectContext());
 </script>
 
 <template>
-    <div class="grid grid-cols-3">
-        <label for="context-selector" class="text-black dark:text-white col-span-1 my-2.5 mr-2">Context: </label>
+    <div class="w-1/2 text-start pl-2">
+        <label for="context-selector" class="my-2.5 mr-2 text-2xl">Context: </label>
         <select
             id="context-selector"
             @change="(e) => emit('select:context', e.target.value)"
-            class="col-span-2"
+            class="w-1/3 selection:border-red-600"
         >
             <option
                 v-for="context in encounterContexts"

@@ -10,6 +10,6 @@ class AdminController extends Controller
 {
     public function __invoke(Request $request): Response
     {
-        return Inertia::render('EncounterGenerator/AdminPanel');
+        return Inertia::render('AdminPanel');
     }
 }
