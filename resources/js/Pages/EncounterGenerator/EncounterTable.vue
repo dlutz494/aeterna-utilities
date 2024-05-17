@@ -7,6 +7,14 @@ const props = defineProps(
         encounters: { type: Array }
     });
 
+function addPadding(num) {
+    if (num.toString().length === 1) {
+        return num.toString().padStart(2, '0');
+    } else {
+        return num;
+    }
+}
+
 const selectedDie = ref('0');
 const dieWeightedEncounters = computed(() => {
     if (selectedDie.value === '0') {
@@ -21,16 +29,16 @@ const dieWeightedEncounters = computed(() => {
         if (range > dieRange) return;
         if (weight === 1) {
             if ((range + weight) > dieRange) {
-                displayRange = range;
+                displayRange = addPadding(range);
             } else {
-                displayRange = range + '-' + (range + weight);
+                displayRange = addPadding(range) + '–' + addPadding(range + weight);
             }
             range += 2;
         } else {
             if ((range + weight - 1) > dieRange) {
-                displayRange = range;
+                displayRange = addPadding(range);
             } else {
-                displayRange = range + '-' + (range + weight - 1);
+                displayRange = addPadding(range) + '–' + addPadding(range + weight - 1);
             }
             range += weight;
         }
@@ -47,11 +55,11 @@ const dieWeightedEncounters = computed(() => {
 </script>
 
 <template>
-    <table class="mb-4 border border-slate-500 w-3/4">
-        <thead class="bg-gray-400 dark:bg-gray-950">
+    <table class="mb-4 w-1/2 bg-white border text-sm">
+        <thead class="border-b-[3px] border-b-stone-300">
         <tr>
-            <th class="dark:text-white border border-slate-500">
-                <select name="dice" v-model="selectedDie" class="dark:bg-black w-full text-center">
+            <th class="border">
+                <select name="dice" v-model="selectedDie" class="w-full text-center text-sm p-4">
                     <option value="0" selected>Chance</option>
                     <option value="4">d4</option>
                     <option value="6">d6</option>
@@ -62,18 +70,18 @@ const dieWeightedEncounters = computed(() => {
                     <option value="100">d100</option>
                 </select>
             </th>
-            <th class="dark:text-white border border-slate-500">Title</th>
-            <th class="dark:text-white border border-slate-500">Description</th>
+            <th class="border text-start p-4">Title</th>
+            <th class="border text-start p-4 max-md:hidden">Description</th>
         </tr>
         </thead>
-        <tbody class="bg-slate-200 dark:bg-slate-700">
-        <tr v-for="encounter in dieWeightedEncounters" class="even:bg-slate-300 dark:even:bg-slate-800">
-            <td class="dark:text-white px-2 w-1/6 border border-slate-500">{{
+        <tbody>
+        <tr v-for="encounter in dieWeightedEncounters" class="odd:bg-stone-100">
+            <td class="border w-1/6">{{
                     encounter.weight
                 }}{{ selectedDie.valueOf() === '0' ? '%' : '' }}
             </td>
-            <td class="dark:text-white px-2 w-1/6 border border-slate-500 mx-1">{{ encounter.title }}</td>
-            <td class="dark:text-white px-2 w-4/6 border border-slate-500 mx-1">{{ encounter.description }}</td>
+            <td class="border text-start w-1/6 px-4 py-2">{{ encounter.title }}</td>
+            <td class="border text-start w-4/6 px-4 py-2 max-md:hidden">{{ encounter.description }}</td>
         </tr>
         </tbody>
     </table>

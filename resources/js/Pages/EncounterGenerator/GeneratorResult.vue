@@ -8,6 +8,10 @@ const props = defineProps(
                 title: '',
                 description: ''
             }
+        },
+        rolling: {
+            type: Boolean,
+            default: false
         }
     });
 
@@ -16,10 +20,10 @@ const emit = defineEmits(['generate:encounter']);
 
 <template>
     <button
-        class="rounded py-1 px-2 mb-2 text-black bg-gray-200 hover:bg-gray-100 active:bg-gray-300
-        dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500 dark:active:bg-gray-700"
+        class="rounded-xl py-2 px-6 uppercase font-bold mb-4 text-white bg-red-600 hover:bg-red-500 active:bg-red-700 disabled:bg-red-900"
+        :disabled="rolling"
         @click="emit('generate:encounter')"
-    >Generate Random Encounter
+    >Roll
     </button>
     <input
         id="result-title"

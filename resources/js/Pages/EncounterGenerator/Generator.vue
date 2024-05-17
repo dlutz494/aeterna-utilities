@@ -3,7 +3,7 @@ import { Head } from '@inertiajs/vue3';
 import { computed, reactive, ref } from 'vue';
 import EncounterTable from '@/Pages/EncounterGenerator/EncounterTable.vue';
 import GeneratorResult from '@/Pages/EncounterGenerator/GeneratorResult.vue';
-import EncounterSelector from '@/Pages/EncounterGenerator/ContextSelector.vue';
+import ContextSelector from '@/Pages/EncounterGenerator/ContextSelector.vue';
 import DefaultLayout from '@/Layouts/DefaultLayout.vue';
 
 // Setup
@@ -31,15 +31,22 @@ const filteredEncounters = computed(() => {
         weight: (encounter.weight * percentage).toFixed(0)
     }));
 });
+const rolling = ref(false);
 const getEncounter = () => {
-    let weightedEncounters = [];
-    filteredEncounters.value.forEach((encounter) => {
-        for (let i = 0; i < encounter.weight; i++) {
-            weightedEncounters.push(encounter);
-        }
-    });
-    const index = Math.floor(Math.random() * weightedEncounters.length);
-    selectedEncounter.value = weightedEncounters[index];
+    rolling.value = true;
+    selectedEncounter.value = { title: 'Rolling...' };
+
+    setTimeout(function () {
+        let weightedEncounters = [];
+        filteredEncounters.value.forEach((encounter) => {
+            for (let i = 0; i < encounter.weight; i++) {
+                weightedEncounters.push(encounter);
+            }
+        });
+        const index = Math.floor(Math.random() * weightedEncounters.length);
+        selectedEncounter.value = weightedEncounters[index];
+        rolling.value = false;
+    }, 500);
 };
 
 // Contexts
@@ -57,11 +64,11 @@ const selectContext = (context) => {
     <Head title="Random Encounter Generator"/>
     <DefaultLayout header="Generator" selected-page="Generator">
         <div class="grid place-items-center">
-            <EncounterSelector
+            <ContextSelector
                 class="mb-2"
                 :encounter-contexts="encounterContexts"
                 @select:context="(context) => selectContext(context)"
-            ></EncounterSelector>
+            ></ContextSelector>
 
             <EncounterTable
                 :encounters="filteredEncounters"
@@ -69,6 +76,7 @@ const selectContext = (context) => {
 
             <GeneratorResult
                 :result="selectedEncounter.value"
+                :rolling="rolling.valueOf()"
                 @generate:encounter="getEncounter"
             ></GeneratorResult>
         </div>
