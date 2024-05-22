@@ -80,7 +80,7 @@ class EncounterController extends Controller
             [
                 'encounter' => $encounter,
                 'context'   => $encounter->contexts[0] ?? null,
-                'weight'    => $encounter->weight->weight,
+                'weight'    => $encounter->weight,
                 'contexts'  => Context::all(),
             ]
         );
