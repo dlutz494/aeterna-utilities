@@ -17,7 +17,7 @@ const props = defineProps(
 </script>
 
 <template>
-    <Head title="Context Index"/>
+    <Head title="Contexts"/>
     <DefaultLayout header="Contexts">
         <div class="grid place-items-center">
             <Link

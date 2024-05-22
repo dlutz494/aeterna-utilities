@@ -20,7 +20,7 @@ const props = defineProps(
 </script>
 
 <template>
-    <Head title="Encounters Index"/>
+    <Head title="Encounters"/>
     <DefaultLayout header="Encounters">
         <div class="grid place-items-center">
             <Link
