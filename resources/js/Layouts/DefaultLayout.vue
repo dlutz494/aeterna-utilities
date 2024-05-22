@@ -5,7 +5,7 @@ import { onBeforeMount, ref } from 'vue';
 const props = defineProps({
     header: {
         type: String,
-        default: ''
+        default: 'Aeterna Utilities'
     },
     selectedPage: {
         type: String,
@@ -51,7 +51,7 @@ onBeforeMount(() => {
 <template>
     <div class="min-h-screen">
         <header class="w-full">
-            <h1 v-if="header"
+            <h1
                 class="py-3.5 w-full text-center font-extrabold text-3xl text-white border-b border-b-red-600 bg-black">{{
                     props.header
                 }}</h1>
