@@ -27,7 +27,7 @@ class EncounterController extends Controller
         });
 
         return Inertia::render(
-            'EncounterGenerator/EncounterIndex',
+            'Admin/EncounterIndex',
             [
                 'encounters' => $encounterData,
                 'create_url' => route('encounter.create'),
@@ -59,7 +59,7 @@ class EncounterController extends Controller
     public function create(): Response
     {
         return Inertia::render(
-            'EncounterGenerator/CreateEncounter',
+            'Admin/CreateEncounter',
             [
                 'contexts' => Context::all(),
             ]
@@ -76,7 +76,7 @@ class EncounterController extends Controller
     public function edit(Encounter $encounter): Response
     {
         return Inertia::render(
-            'EncounterGenerator/EditEncounter',
+            'Admin/EditEncounter',
             [
                 'encounter' => $encounter,
                 'context'   => $encounter->contexts[0] ?? null,

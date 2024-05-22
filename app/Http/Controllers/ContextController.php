@@ -24,7 +24,7 @@ class ContextController extends Controller
         });
 
         return Inertia::render(
-            'EncounterGenerator/ContextIndex',
+            'Admin/ContextIndex',
             [
                 'contexts'   => $contextData,
                 'create_url' => route('context.create'),
@@ -41,7 +41,7 @@ class ContextController extends Controller
 
     public function create(): Response
     {
-        return Inertia::render('EncounterGenerator/CreateContext');
+        return Inertia::render('Admin/CreateContext');
     }
 
     public function doDelete(Request $request, Context $context): RedirectResponse
@@ -54,7 +54,7 @@ class ContextController extends Controller
     public function edit(Context $context): Response
     {
         return Inertia::render(
-            'EncounterGenerator/EditContext',
+            'Admin/EditContext',
             [
                 'context' => $context,
             ]
