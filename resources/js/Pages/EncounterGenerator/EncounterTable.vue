@@ -55,7 +55,7 @@ const dieWeightedEncounters = computed(() => {
 </script>
 
 <template>
-    <table class="mb-4 w-1/2 bg-white border text-sm">
+    <table class="mb-4 w-1/2 bg-white text-sm">
         <thead class="border-b-[3px] border-b-stone-300">
         <tr>
             <th class="border">
