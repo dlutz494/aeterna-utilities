@@ -12,13 +12,13 @@ const errors = defineModel('errors');
 
 <template>
     <label :for="props.fieldKey"
-           class="dark:text-white content-center"
+           class="col-span-1 content-center"
     >
         {{ props.fieldTitle }}:
     </label>
     <input :id="props.fieldKey"
            :class="{ 'border-red-500 border-4' : errors }"
-           class="col-span-2 rounded-lg"
+           class="col-span-2 border shadow mb-2"
            type="text"
            v-model="fieldValue"
     />
