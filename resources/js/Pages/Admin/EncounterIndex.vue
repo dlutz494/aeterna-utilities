@@ -9,7 +9,7 @@ const props = defineProps(
                 id: Number,
                 title: String,
                 description: String,
-                context: Object,
+                contexts: Array,
                 weight: Object,
                 edit_url: String,
                 delete_url: String
@@ -45,7 +45,12 @@ const props = defineProps(
                     <td class="border text-start px-4 py-2">{{ encounter.title }}</td>
                     <td class="border text-start w-1/2 px-4 py-2">{{ encounter.description }}</td>
                     <td class="border text-start px-4 py-2">
-                        {{ encounter.context ? encounter.context.title : 'N/A' }}
+                        <div v-if="encounter.contexts.length === 0">N/A</div>
+                        <ul v-else>
+                            <li v-for="context in encounter.contexts">
+                                {{ context.title }}
+                            </li>
+                        </ul>
                     </td>
                     <td class="border text-start px-4 py-2">{{ encounter.weight }}</td>
                     <td class="border text-center px-4 py-2">
