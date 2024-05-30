@@ -10,14 +10,20 @@ import DefaultLayout from '@/Layouts/DefaultLayout.vue';
 const props = defineProps(
     {
         encounters: { type: Array },
-        contexts: { type: Object }
+        all_contexts: { type: Object }
     });
 
 // Encounters
 const selectedEncounter = reactive({});
 const filteredEncounters = computed(() => {
     let encounters = props.encounters
-        .filter((encounter) => encounter.context?.id === selectedContext.value || encounter.context === null)
+        .filter(function (encounter) {
+            if (encounter.contexts.length !== 0) {
+                return encounter.contexts.find(function (context) {
+                    return context?.id === selectedContext.value;
+                });
+            } else return true;
+        })
         .sort((a, b) => a.weight - b.weight)
         .reverse();
 
@@ -52,7 +58,7 @@ const getEncounter = () => {
 // Contexts
 const selectedContext = ref(0);
 const encounterContexts = computed(() => {
-    return props.contexts;
+    return props.all_contexts;
 });
 const selectContext = (context) => {
     selectedContext.value = parseInt(context);

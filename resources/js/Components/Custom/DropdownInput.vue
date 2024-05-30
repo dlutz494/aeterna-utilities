@@ -22,7 +22,6 @@ const errors = defineModel('errors');
             :class="{ 'border-red-500 border-4' : errors }"
             class="col-span-2 mb-2"
             v-model="fieldValue">
-        <option :value="null">N/A</option>
         <option v-for="option in options"
                 :value="option.id"
         >{{ option.title }}

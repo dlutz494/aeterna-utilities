@@ -18,11 +18,11 @@ class GeneratorController extends Controller
                     'id'          => $encounter->id,
                     'title'       => $encounter->title,
                     'description' => $encounter->description,
-                    'context'     => $encounter->contexts[0] ?? null,
+                    'contexts'    => $encounter->contexts ?? null,
                     'weight'      => $encounter->weight,
                 ];
             }),
-            'contexts'   => Context::all(),
+            'all_contexts'   => Context::all(),
         ]);
     }
 }
