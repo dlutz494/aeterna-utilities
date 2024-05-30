@@ -67,6 +67,7 @@ const props = defineProps(
                             :href="encounter.delete_url"
                             method="delete"
                             as="button"
+                            preserve-scroll
                         >
                             Delete
                         </Link>
