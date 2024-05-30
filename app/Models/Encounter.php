@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Encounter extends Model
 {
@@ -25,12 +25,12 @@ class Encounter extends Model
 
     public function getWeightAttribute()
     {
-        return $this->contextEncounter->weight;
+        return $this->contextEncounters->first()?->weight;
     }
 
-    public function contextEncounter(): HasOne
+    public function contextEncounters(): HasMany
     {
-        return $this->hasOne(ContextEncounter::class);
+        return $this->hasMany(ContextEncounter::class);
     }
 
     public function contexts(): BelongsToMany
