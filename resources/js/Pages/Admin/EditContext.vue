@@ -21,7 +21,7 @@ function submit () {
 
 <template>
     <Head title="Edit Context"/>
-    <DefaultLayout>
+    <DefaultLayout header="Edit Context">
         <div class="grid place-items-center">
             <Link :href="route('context.index')"
                   class="rounded-xl py-2 px-6 w-1/4 text-white font-extrabold bg-red-600 hover:bg-red-500 active:bg-red-700 block">

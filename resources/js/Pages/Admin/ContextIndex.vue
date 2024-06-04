@@ -1,6 +1,7 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
 import DefaultLayout from '@/Layouts/DefaultLayout.vue';
+import { computed, ref } from 'vue';
 
 const props = defineProps(
     {
@@ -14,6 +15,33 @@ const props = defineProps(
         },
         create_url: { type: String }
     });
+
+const titleSorting = ref('');
+const sortTitles = () => {
+    switch (titleSorting.value) {
+        case '':
+            titleSorting.value = 'DESC';
+            break;
+        case 'DESC':
+            titleSorting.value = 'ASC';
+            break;
+        case 'ASC':
+            titleSorting.value = '';
+            break;
+    }
+};
+const sortedContexts = computed(() => {
+    return props.contexts.sort((contextA, contextB) => {
+        switch (titleSorting.value) {
+            case '':
+                return contextA.id - contextB.id;
+            case 'DESC':
+                return contextB.title.localeCompare(contextA.title);
+            case 'ASC':
+                return contextA.title.localeCompare(contextB.title);
+        }
+    });
+});
 </script>
 
 <template>
@@ -30,12 +58,16 @@ const props = defineProps(
             <table class="w-2/3 bg-white text-sm my-4">
                 <thead class="border-b-[3px] border-b-stone-300">
                 <tr>
-                    <th class="border text-start p-4">Title</th>
+                    <th class="border text-start p-4 hover:cursor-pointer" @click="sortTitles">Title {{
+                            titleSorting.valueOf() === 'ASC' ? '▲' :
+                                titleSorting.valueOf() === 'DESC' ? '▼' : ''
+                        }}
+                    </th>
                     <th class="border text-center p-4 italic font-normal">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="context in contexts" class="odd:bg-stone-100">
+                <tr v-for="context in sortedContexts" class="odd:bg-stone-100">
                     <td class="border text-start px-4 w-3/4 py-2">{{ context.title }}</td>
                     <td class="border text-center px-4 py-2">
                         <Link
