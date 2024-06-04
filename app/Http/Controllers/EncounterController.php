@@ -29,8 +29,9 @@ class EncounterController extends Controller
         return Inertia::render(
             'Admin/EncounterIndex',
             [
-                'encounters' => $encounterData,
-                'create_url' => route('encounter.create'),
+                'encounters'   => $encounterData,
+                'create_url'   => route('encounter.create'),
+                'all_contexts' => Context::all(),
             ]
         );
     }

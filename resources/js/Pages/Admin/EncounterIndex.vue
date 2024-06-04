@@ -1,6 +1,7 @@
 <script setup>
 import { Head, Link } from '@inertiajs/vue3';
 import DefaultLayout from '@/Layouts/DefaultLayout.vue';
+import { computed, ref } from 'vue';
 
 const props = defineProps(
     {
@@ -15,8 +16,53 @@ const props = defineProps(
                 delete_url: String
             }
         },
-        create_url: { type: String }
+        create_url: { type: String },
+        all_contexts: {
+            type: Object
+        }
     });
+
+const selectContext = (context) => {
+    contextFilter.value = context;
+};
+const contextFilter = ref('');
+const filteredEncounters = computed(() => {
+    return props.encounters.filter((encounter) => {
+        if (contextFilter.value === '') {
+            return props.encounters;
+        } else if (contextFilter.value === 'N/A') {
+            return encounter.contexts.length === 0;
+        } else {
+            return encounter.contexts.find(function (context) {
+                return context?.id === parseInt(contextFilter.value);
+            });
+        }
+    }).sort((encounterA, encounterB) => {
+        switch (weightSorting.value) {
+            case '':
+                return 0;
+            case 'DESC':
+                return encounterB.weight - encounterA.weight;
+            case 'ASC':
+                return encounterA.weight - encounterB.weight;
+        }
+    });
+});
+
+const weightSorting = ref('');
+const sortWeights = () => {
+    switch (weightSorting.value) {
+        case '':
+            weightSorting.value = 'DESC';
+            break;
+        case 'DESC':
+            weightSorting.value = 'ASC';
+            break;
+        case 'ASC':
+            weightSorting.value = '';
+            break;
+    }
+};
 </script>
 
 <template>
@@ -30,18 +76,42 @@ const props = defineProps(
                 Create New Encounter
             </Link>
 
+            <select
+                id="context-selector"
+                class="mt-2"
+                @change="(e) => selectContext(e.target.value)"
+            >
+                <option
+                    value=""
+                    selected
+                >No Filter
+                </option>
+                <option
+                    v-for="context in all_contexts"
+                    :value="context.id"
+                >{{ context.title }}
+                </option>
+                <option
+                    value="N/A"
+                >Anywhere
+                </option>
+            </select>
             <table class="w-2/3 bg-white text-sm my-4">
                 <thead class="border-b-[3px] border-b-stone-300">
                 <tr>
                     <th class="border text-start p-4">Title</th>
                     <th class="border text-start p-4">Description</th>
                     <th class="border text-start p-4">Context</th>
-                    <th class="border text-start p-4">Weight</th>
+                    <th class="border text-start p-4 hover:cursor-pointer" @click="sortWeights">Weight {{
+                            weightSorting.valueOf() === 'ASC' ? '▲' :
+                                weightSorting.valueOf() === 'DESC' ? '▼' : ''
+                        }}
+                    </th>
                     <th class="border text-center p-4 italic font-normal">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="encounter in encounters" class="odd:bg-stone-100">
+                <tr v-for="encounter in filteredEncounters" class="odd:bg-stone-100">
                     <td class="border text-start px-4 py-2">{{ encounter.title }}</td>
                     <td class="border text-start w-1/2 px-4 py-2">{{ encounter.description }}</td>
                     <td class="border text-start px-4 py-2">
