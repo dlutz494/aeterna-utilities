@@ -89,6 +89,13 @@ const sortTitles = () => {
             break;
     }
 };
+
+const clearSorting = () => {
+    document.getElementById('context-selector').value = '';
+    contextFilter.value = '';
+    weightSorting.value = '';
+    titleSorting.value = '';
+};
 </script>
 
 <template>
@@ -107,34 +114,39 @@ const sortTitles = () => {
                 <tr>
                     <th class="border"></th>
                     <th class="border"></th>
-                    <th class="border"><select
-                        id="context-selector"
-                        class="w-full font-light"
-                        @change="(e) => selectContext(e.target.value)"
-                    >
-                        <option
-                            value=""
-                            selected
-                        >Filter
-                        </option>
-                        <option
-                            v-for="context in all_contexts"
-                            :value="context.id"
-                        >{{ context.title }}
-                        </option>
-                        <option
-                            value="N/A"
-                        >Anywhere
-                        </option>
-                    </select></th>
+                    <th class="border">
+                        <select
+                            id="context-selector"
+                            class="w-full font-light border-0"
+                            @change="(e) => selectContext(e.target.value)"
+                        >
+                            <option
+                                value=""
+                                selected
+                            >Filter
+                            </option>
+                            <option
+                                v-for="context in all_contexts"
+                                :value="context.id"
+                            >{{ context.title }}
+                            </option>
+                            <option
+                                value="N/A"
+                            >Anywhere
+                            </option>
+                        </select>
+                    </th>
                     <th class="border"></th>
-                    <th class="border"></th>
+                    <th class="border font-bold text-white hover:cursor-pointer bg-sky-400 hover:bg-sky-300 active:bg-sky-400"
+                        @click="clearSorting">Clear Sorting
+                    </th>
                 </tr>
                 <tr>
                     <th class="border text-start p-4 hover:cursor-pointer w-1/5" @click="sortTitles">Title {{
                             titleSorting.valueOf() === 'ASC' ? '▲' :
                                 titleSorting.valueOf() === 'DESC' ? '▼' : ''
-                        }}</th>
+                        }}
+                    </th>
                     <th class="border text-start p-4 w-1/2">Description</th>
                     <th class="border text-start p-4 w-[10%]">Context</th>
                     <th class="border text-start p-4 hover:cursor-pointer w-[10%]" @click="sortWeights">Weight {{
