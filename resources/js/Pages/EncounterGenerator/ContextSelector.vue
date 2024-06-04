@@ -22,7 +22,7 @@ onUpdated(() => selectContext());
         <select
             id="context-selector"
             @change="(e) => emit('select:context', e.target.value)"
-            class="w-1/3 selection:border-red-600"
+            class="w-1/3"
         >
             <option
                 v-for="context in encounterContexts"
