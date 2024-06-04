@@ -20,12 +20,12 @@ const titleSorting = ref('');
 const sortTitles = () => {
     switch (titleSorting.value) {
         case '':
-            titleSorting.value = 'DESC';
-            break;
-        case 'DESC':
             titleSorting.value = 'ASC';
             break;
         case 'ASC':
+            titleSorting.value = 'DESC';
+            break;
+        case 'DESC':
             titleSorting.value = '';
             break;
     }

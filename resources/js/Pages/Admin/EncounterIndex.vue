@@ -63,12 +63,12 @@ const sortWeights = () => {
     titleSorting.value = '';
     switch (weightSorting.value) {
         case '':
-            weightSorting.value = 'DESC';
-            break;
-        case 'DESC':
             weightSorting.value = 'ASC';
             break;
         case 'ASC':
+            weightSorting.value = 'DESC';
+            break;
+        case 'DESC':
             weightSorting.value = '';
             break;
     }
@@ -79,12 +79,12 @@ const sortTitles = () => {
     weightSorting.value = '';
     switch (titleSorting.value) {
         case '':
-            titleSorting.value = 'DESC';
-            break;
-        case 'DESC':
             titleSorting.value = 'ASC';
             break;
         case 'ASC':
+            titleSorting.value = 'DESC';
+            break;
+        case 'DESC':
             titleSorting.value = '';
             break;
     }
