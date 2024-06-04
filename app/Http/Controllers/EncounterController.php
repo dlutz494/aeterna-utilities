@@ -19,7 +19,7 @@ class EncounterController extends Controller
                 'id'          => $encounter->id,
                 'title'       => $encounter->title,
                 'description' => $encounter->description,
-                'context'     => $encounter->contexts[0] ?? null,
+                'contexts'    => $encounter->contexts ?? null,
                 'weight'      => $encounter->weight,
                 'edit_url'    => route('encounter.edit', $encounter),
                 'delete_url'  => route('encounter.delete', $encounter),
@@ -42,13 +42,15 @@ class EncounterController extends Controller
             'description',
         ]));
 
-        if ($request->has('context_id')) {
-            $encounter->contextEncounter()->create([
-                'weight'     => $request->validated('weight'),
-                'context_id' => $request->validated('context_id'),
-            ]);
+        if ($request->validated('contexts')) {
+            foreach ($request->validated('contexts') as $context) {
+                $encounter->contextEncounters()->create([
+                    'weight'     => $request->validated('weight'),
+                    'context_id' => $context,
+                ]);
+            }
         } else {
-            $encounter->contextEncounter()->create([
+            $encounter->contextEncounters()->create([
                 'weight' => $request->validated('weight'),
             ]);
         }
@@ -61,7 +63,7 @@ class EncounterController extends Controller
         return Inertia::render(
             'Admin/CreateEncounter',
             [
-                'contexts' => Context::all(),
+                'all_contexts' => Context::all(),
             ]
         );
     }
@@ -78,10 +80,10 @@ class EncounterController extends Controller
         return Inertia::render(
             'Admin/EditEncounter',
             [
-                'encounter' => $encounter,
-                'context'   => $encounter->contexts[0] ?? null,
-                'weight'    => $encounter->weight,
-                'contexts'  => Context::all(),
+                'encounter'    => $encounter,
+                'contexts'     => $encounter->contexts ?? null,
+                'weight'       => $encounter->weight,
+                'all_contexts' => Context::all(),
             ]
         );
     }
@@ -93,13 +95,16 @@ class EncounterController extends Controller
             'description',
         ]));
 
-        if ($request->has(['weight', 'context_id'])) {
-            $encounter->contextEncounter()->update([
-                'weight'     => $request->validated('weight'),
-                'context_id' => $request->validated('context_id'),
-            ]);
-        } elseif ($request->has('weight')) {
-            $encounter->contextEncounter()->update([
+        $encounter->contextEncounters()->delete();
+        if ($request->validated('contexts')) {
+            foreach ($request->validated('contexts') as $context) {
+                $encounter->contextEncounters()->create([
+                    'weight'     => $request->validated('weight'),
+                    'context_id' => $context,
+                ]);
+            }
+        } else {
+            $encounter->contextEncounters()->create([
                 'weight' => $request->validated('weight'),
             ]);
         }

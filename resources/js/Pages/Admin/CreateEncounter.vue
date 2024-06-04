@@ -6,19 +6,27 @@ import DropdownInput from '@/Components/Custom/DropdownInput.vue';
 import DefaultLayout from '@/Layouts/DefaultLayout.vue';
 
 const props = defineProps([
-    'contexts'
+    'all_contexts'
 ]);
 
 // Form
 const form = useForm({
     title: null,
     description: null,
-    context_id: null,
+    contexts: [],
     weight: null
 });
 
 function submit () {
     form.post('/encounter');
+}
+
+function addContext () {
+    form.contexts.push(props.all_contexts[0].id);
+}
+
+function removeContext (key) {
+    form.contexts.splice(key, 1);
 }
 </script>
 
@@ -34,7 +42,7 @@ function submit () {
             <form
                 @submit.prevent="submit"
                 @reset.prevent="form.reset()"
-                class="grid grid-cols-3 mt-4 w-1/2">
+                class="grid grid-cols-4 mt-4 w-3/4">
                 <TextInput
                     field-key="title"
                     field-title="Title"
@@ -47,13 +55,28 @@ function submit () {
                     v-model:field-value="form.description"
                     v-model:errors="form.errors.description"
                 />
-                <DropdownInput
-                    field-key="context_id"
-                    field-title="Context"
-                    :options="contexts"
-                    v-model:field-value="form.context_id"
-                    v-model:errors="form.errors.context_id"
-                />
+                <div class="col-span-full mb-2">
+                    <div v-for="(context_id, key) in form.contexts" class="grid grid-cols-4">
+                        <DropdownInput
+                            :field-key="key"
+                            field-title="Context"
+                            :options="all_contexts"
+                            v-model:field-value="form.contexts[key]"
+                            v-model:errors="form.errors.contexts"
+                        />
+                        <button type="button"
+                                class="col-span-1 text-white uppercase text-xs font-bold bg-sky-400 hover:bg-sky-300 active:bg-sky-400 rounded-sm ml-2 mb-2"
+                                @click="removeContext(key)"
+                                :class="{ hidden : form.contexts.length < 1}">
+                            Remove Context
+                        </button>
+                    </div>
+                    <button type="button"
+                            class="col-span-1 text-white uppercase text-xs font-bold bg-sky-400 hover:bg-sky-300 active:bg-sky-400 rounded-sm px-4 py-2"
+                            @click="addContext">
+                        Add a Context
+                    </button>
+                </div>
                 <TextInput
                     field-key="weight"
                     field-title="Weight"
@@ -61,12 +84,12 @@ function submit () {
                     v-model:errors="form.errors.weight"
                 />
                 <button type="submit"
-                        class="text-white font-bold bg-sky-400 hover:bg-sky-300 active:bg-sky-400 rounded-sm p-1 col-start-2 mr-1"
+                        class="text-white uppercase text-sm font-bold bg-sky-400 hover:bg-sky-300 active:bg-sky-400 rounded-sm py-2 col-start-2 mr-1"
                         :disabled="form.processing">
                     Submit
                 </button>
                 <button type="reset"
-                        class="text-white font-bold bg-sky-400 hover:bg-sky-300 active:bg-sky-400 rounded-sm p-1 col-start-3 ml-1">
+                        class="text-white uppercase text-sm font-bold bg-sky-400 hover:bg-sky-300 active:bg-sky-400 rounded-sm py-2 col-start-3 ml-1">
                     Reset
                 </button>
             </form>

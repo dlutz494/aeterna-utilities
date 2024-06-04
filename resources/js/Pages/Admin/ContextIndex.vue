@@ -51,6 +51,7 @@ const props = defineProps(
                             :href="context.delete_url"
                             method="delete"
                             as="button"
+                            preserve-scroll
                         >
                             Delete
                         </Link>

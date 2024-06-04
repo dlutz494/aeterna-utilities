@@ -11,7 +11,6 @@ class EncounterSeeder extends Seeder
     public function run(): void
     {
         $forestEncounters   = [
-            'Bandits'   => 'A gang of bandits attempt to rob you.',
             'Wolves'    => 'A pack of wolves have surrounded you.',
             'Skeletons' => 'A group of skeletons shamble nearby.',
         ];
@@ -30,6 +29,9 @@ class EncounterSeeder extends Seeder
             'Thieves' => 'A gang of thieves have stolen your gold pouch from under your nose.',
             'Wizards' => 'A wizard challenges you to a magic duel',
             'Nobles'  => 'You\'ve been accosted by a local noble',
+        ];
+        $mixedEncounters    = [
+            'Bandits' => 'A gang of bandits attempt to rob you.',
         ];
         $anywhereEncounters = [
             'Lich' => 'A powerful lich appears from out of a black cloud.',
@@ -67,11 +69,23 @@ class EncounterSeeder extends Seeder
                 'weight' => rand(5, 30),
             ]);
         }
+        foreach ($mixedEncounters as $title => $description) {
+            $encounter = Encounter::factory()->create([
+                'title'       => $title,
+                'description' => $description,
+            ]);
+            $encounter->contexts()->attach(Context::find(1), [
+                'weight' => rand(5, 30),
+            ]);
+            $encounter->contexts()->attach(Context::find(4), [
+                'weight' => rand(5, 30),
+            ]);
+        }
         foreach ($anywhereEncounters as $title => $description) {
             Encounter::factory()->create([
                 'title'       => $title,
                 'description' => $description,
-            ])->contextEncounter()->create([
+            ])->contextEncounters()->create([
                 'weight' => 1,
             ]);
         }
