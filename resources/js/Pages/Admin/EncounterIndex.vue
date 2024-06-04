@@ -46,11 +46,21 @@ const filteredEncounters = computed(() => {
             case 'ASC':
                 return encounterA.weight - encounterB.weight;
         }
+    }).sort((encounterA, encounterB) => {
+        switch (titleSorting.value) {
+            case '':
+                return 0;
+            case 'DESC':
+                return encounterB.title.localeCompare(encounterA.title);
+            case 'ASC':
+                return encounterA.title.localeCompare(encounterB.title);
+        }
     });
 });
 
 const weightSorting = ref('');
 const sortWeights = () => {
+    titleSorting.value = '';
     switch (weightSorting.value) {
         case '':
             weightSorting.value = 'DESC';
@@ -60,6 +70,22 @@ const sortWeights = () => {
             break;
         case 'ASC':
             weightSorting.value = '';
+            break;
+    }
+};
+
+const titleSorting = ref('');
+const sortTitles = () => {
+    weightSorting.value = '';
+    switch (titleSorting.value) {
+        case '':
+            titleSorting.value = 'DESC';
+            break;
+        case 'DESC':
+            titleSorting.value = 'ASC';
+            break;
+        case 'ASC':
+            titleSorting.value = '';
             break;
     }
 };
@@ -105,15 +131,18 @@ const sortWeights = () => {
                     <th class="border"></th>
                 </tr>
                 <tr>
-                    <th class="border text-start p-4">Title</th>
-                    <th class="border text-start p-4">Description</th>
-                    <th class="border text-start p-4">Context</th>
-                    <th class="border text-start p-4 hover:cursor-pointer" @click="sortWeights">Weight {{
+                    <th class="border text-start p-4 hover:cursor-pointer w-1/5" @click="sortTitles">Title {{
+                            titleSorting.valueOf() === 'ASC' ? '▲' :
+                                titleSorting.valueOf() === 'DESC' ? '▼' : ''
+                        }}</th>
+                    <th class="border text-start p-4 w-1/2">Description</th>
+                    <th class="border text-start p-4 w-[10%]">Context</th>
+                    <th class="border text-start p-4 hover:cursor-pointer w-[10%]" @click="sortWeights">Weight {{
                             weightSorting.valueOf() === 'ASC' ? '▲' :
                                 weightSorting.valueOf() === 'DESC' ? '▼' : ''
                         }}
                     </th>
-                    <th class="border text-center p-4 italic font-normal">Actions</th>
+                    <th class="border text-center p-4 italic font-normal w-[10%]">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
