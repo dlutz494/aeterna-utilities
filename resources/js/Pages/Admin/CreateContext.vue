@@ -27,7 +27,7 @@ function submit () {
             <form
                 @submit.prevent="submit"
                 @reset.prevent="form.reset()"
-                class="grid grid-cols-3 mt-4 w-1/2">
+                class="grid grid-cols-4 mt-4 w-3/4">
                 <TextInput
                     field-key="title"
                     field-title="Title"
@@ -35,12 +35,12 @@ function submit () {
                     v-model:errors="form.errors.title"
                 />
                 <button type="submit"
-                        class="text-white font-bold bg-sky-400 hover:bg-sky-300 active:bg-sky-400 rounded-sm p-1 col-start-2 mr-1"
+                        class="text-white uppercase text-sm font-bold bg-sky-400 hover:bg-sky-300 active:bg-sky-400 rounded-sm py-2 col-start-2 mr-1"
                         :disabled="form.processing">
                     Submit
                 </button>
                 <button type="reset"
-                        class="text-white font-bold bg-sky-400 hover:bg-sky-300 active:bg-sky-400 rounded-sm p-1 col-start-3 ml-1">
+                        class="text-white uppercase text-sm font-bold bg-sky-400 hover:bg-sky-300 active:bg-sky-400 rounded-sm py-2 col-start-3 ml-1">
                     Reset
                 </button>
             </form>
