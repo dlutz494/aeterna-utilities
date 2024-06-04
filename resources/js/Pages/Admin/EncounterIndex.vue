@@ -148,7 +148,7 @@ const clearSorting = () => {
                         }}
                     </th>
                     <th class="border text-start p-4 w-1/2">Description</th>
-                    <th class="border text-start p-4 w-[10%]">Context</th>
+                    <th class="border text-start p-4 w-[10%]">Context(s)</th>
                     <th class="border text-start p-4 hover:cursor-pointer w-[10%]" @click="sortWeights">Weight {{
                             weightSorting.valueOf() === 'ASC' ? '▲' :
                                 weightSorting.valueOf() === 'DESC' ? '▼' : ''
