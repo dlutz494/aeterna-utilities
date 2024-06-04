@@ -24,6 +24,7 @@ function submit () {
 function addContext () {
     form.contexts.push(props.all_contexts[0].id);
 }
+
 function removeContext (key) {
     form.contexts.splice(key, 1);
 }
@@ -41,7 +42,7 @@ function removeContext (key) {
             <form
                 @submit.prevent="submit"
                 @reset.prevent="form.reset()"
-                class="grid grid-cols-3 mt-4 w-1/2">
+                class="grid grid-cols-4 mt-4 w-3/4">
                 <TextInput
                     field-key="title"
                     field-title="Title"
@@ -54,46 +55,28 @@ function removeContext (key) {
                     v-model:field-value="form.description"
                     v-model:errors="form.errors.description"
                 />
-                <span v-for="(context_id, key) in form.contexts" class="col-span-full">
-                    <DropdownInput
-                        :field-key="key"
-                        field-title="Context"
-                        :options="all_contexts"
-                        v-model:field-value="form.contexts[key]"
-                        v-model:errors="form.errors.contexts"
-                    />
-                    <!--          Remove Svg Icon-->
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        width="24"
-                        height="24"
-                        class="ml-2 cursor-pointer"
-                        @click="removeContext(key)"
-                        :class="{ hidden : form.contexts.length <= 1}"
-                    >
-                        <path fill="none" d="M0 0h24v24H0z" />
-                        <path
-                            fill="#EC4899"
-                            d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm0-9.414l2.828-2.829 1.415 1.415L13.414 12l2.829 2.828-1.415 1.415L12 13.414l-2.828 2.829-1.415-1.415L10.586 12 7.757 9.172l1.415-1.415L12 10.586z"
+                <div class="col-span-full mb-2">
+                    <div v-for="(context_id, key) in form.contexts" class="grid grid-cols-4">
+                        <DropdownInput
+                            :field-key="key"
+                            field-title="Context"
+                            :options="all_contexts"
+                            v-model:field-value="form.contexts[key]"
+                            v-model:errors="form.errors.contexts"
                         />
-                    </svg>
-                </span>
-                <!--          Add Svg Icon-->
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    width="24"
-                    height="24"
-                    class="ml-2 cursor-pointer"
-                    @click="addContext"
-                >
-                    <path fill="none" d="M0 0h24v24H0z" />
-                    <path
-                        fill="green"
-                        d="M11 11V7h2v4h4v2h-4v4h-2v-4H7v-2h4zm1 11C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16z"
-                    />
-                </svg>
+                        <button type="button"
+                                class="col-span-1 text-white uppercase text-xs font-bold bg-sky-400 hover:bg-sky-300 active:bg-sky-400 rounded-sm ml-2 mb-2"
+                                @click="removeContext(key)"
+                                :class="{ hidden : form.contexts.length < 1}">
+                            Remove Context
+                        </button>
+                    </div>
+                    <button type="button"
+                            class="col-span-1 text-white uppercase text-xs font-bold bg-sky-400 hover:bg-sky-300 active:bg-sky-400 rounded-sm px-4 py-2"
+                            @click="addContext">
+                        Add a Context
+                    </button>
+                </div>
                 <TextInput
                     field-key="weight"
                     field-title="Weight"
@@ -101,12 +84,12 @@ function removeContext (key) {
                     v-model:errors="form.errors.weight"
                 />
                 <button type="submit"
-                        class="text-white font-bold bg-sky-400 hover:bg-sky-300 active:bg-sky-400 rounded-sm p-1 col-start-2 mr-1"
+                        class="text-white uppercase text-sm font-bold bg-sky-400 hover:bg-sky-300 active:bg-sky-400 rounded-sm py-2 col-start-2 mr-1"
                         :disabled="form.processing">
                     Submit
                 </button>
                 <button type="reset"
-                        class="text-white font-bold bg-sky-400 hover:bg-sky-300 active:bg-sky-400 rounded-sm p-1 col-start-3 ml-1">
+                        class="text-white uppercase text-sm font-bold bg-sky-400 hover:bg-sky-300 active:bg-sky-400 rounded-sm py-2 col-start-3 ml-1">
                     Reset
                 </button>
             </form>
