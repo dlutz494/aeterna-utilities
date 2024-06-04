@@ -40,7 +40,7 @@ const filteredEncounters = computed(() => {
     }).sort((encounterA, encounterB) => {
         switch (weightSorting.value) {
             case '':
-                return 0;
+                return encounterA.id - encounterB.id;
             case 'DESC':
                 return encounterB.weight - encounterA.weight;
             case 'ASC':
@@ -76,28 +76,34 @@ const sortWeights = () => {
                 Create New Encounter
             </Link>
 
-            <select
-                id="context-selector"
-                class="mt-2"
-                @change="(e) => selectContext(e.target.value)"
-            >
-                <option
-                    value=""
-                    selected
-                >No Filter
-                </option>
-                <option
-                    v-for="context in all_contexts"
-                    :value="context.id"
-                >{{ context.title }}
-                </option>
-                <option
-                    value="N/A"
-                >Anywhere
-                </option>
-            </select>
             <table class="w-2/3 bg-white text-sm my-4">
                 <thead class="border-b-[3px] border-b-stone-300">
+                <tr>
+                    <th class="border"></th>
+                    <th class="border"></th>
+                    <th class="border"><select
+                        id="context-selector"
+                        class="w-full font-light"
+                        @change="(e) => selectContext(e.target.value)"
+                    >
+                        <option
+                            value=""
+                            selected
+                        >Filter
+                        </option>
+                        <option
+                            v-for="context in all_contexts"
+                            :value="context.id"
+                        >{{ context.title }}
+                        </option>
+                        <option
+                            value="N/A"
+                        >Anywhere
+                        </option>
+                    </select></th>
+                    <th class="border"></th>
+                    <th class="border"></th>
+                </tr>
                 <tr>
                     <th class="border text-start p-4">Title</th>
                     <th class="border text-start p-4">Description</th>
@@ -115,7 +121,7 @@ const sortWeights = () => {
                     <td class="border text-start px-4 py-2">{{ encounter.title }}</td>
                     <td class="border text-start w-1/2 px-4 py-2">{{ encounter.description }}</td>
                     <td class="border text-start px-4 py-2">
-                        <div v-if="encounter.contexts.length === 0">N/A</div>
+                        <div v-if="encounter.contexts.length === 0">Anywhere</div>
                         <ul v-else>
                             <li v-for="context in encounter.contexts">
                                 {{ context.title }}
