@@ -13,7 +13,11 @@ const props = defineProps(
                 delete_url: String
             }
         },
-        create_url: { type: String }
+        create_url: { type: String },
+        pagination: {
+            type: Number,
+            default: 25
+        }
     });
 
 const titleSorting = ref('');
@@ -40,8 +44,21 @@ const sortedContexts = computed(() => {
             case 'ASC':
                 return contextA.title.localeCompare(contextB.title);
         }
-    });
+    }).slice(currentPage.value, currentPage.value + props.pagination);
 });
+
+// Pagination
+const currentPage = ref(0);
+const nextPage = () => {
+    if (currentPage.value + props.pagination <= props.contexts.length) {
+        currentPage.value = currentPage.value + props.pagination;
+    }
+};
+const previousPage = () => {
+    if ((currentPage.value) > 0) {
+        currentPage.value = currentPage.value - props.pagination;
+    }
+};
 </script>
 
 <template>
@@ -91,6 +108,22 @@ const sortedContexts = computed(() => {
                 </tr>
                 </tbody>
             </table>
+            <div class="mb-4 flex w-2/3 justify-end">
+                <button
+                    class="bg-white p-1 border"
+                    @click="previousPage"
+                >Back
+                </button>
+                <div
+                    class="bg-white p-1 border"
+                >{{ (currentPage.valueOf() / props.pagination) + 1 }}
+                </div>
+                <button
+                    class="bg-white p-1 border"
+                    @click="nextPage"
+                >Next
+                </button>
+            </div>
         </div>
     </DefaultLayout>
 </template>

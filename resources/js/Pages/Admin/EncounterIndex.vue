@@ -108,7 +108,7 @@ const clearSorting = () => {
 // Pagination
 const currentPage = ref(0);
 const nextPage = () => {
-    if (currentPage.value <= filteredEncounters.value.length) {
+    if (currentPage.value + props.pagination <= props.encounters.length) {
         currentPage.value = currentPage.value + props.pagination;
     }
 };
