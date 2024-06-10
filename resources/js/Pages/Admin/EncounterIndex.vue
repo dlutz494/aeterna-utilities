@@ -3,6 +3,7 @@ import { Head, Link } from '@inertiajs/vue3';
 import DefaultLayout from '@/Layouts/DefaultLayout.vue';
 import { computed, ref } from 'vue';
 
+// Setup
 const props = defineProps(
     {
         encounters: {
@@ -19,13 +20,14 @@ const props = defineProps(
         create_url: { type: String },
         all_contexts: {
             type: Object
+        },
+        pagination: {
+            type: Number,
+            default: 25
         }
     });
 
-const selectContext = (context) => {
-    contextFilter.value = context;
-};
-const contextFilter = ref('');
+// Encounter list
 const filteredEncounters = computed(() => {
     return props.encounters.filter((encounter) => {
         if (contextFilter.value === '') {
@@ -55,9 +57,16 @@ const filteredEncounters = computed(() => {
             case 'ASC':
                 return encounterA.title.localeCompare(encounterB.title);
         }
-    });
+    }).slice(currentPage.value, currentPage.value + props.pagination);
 });
 
+// Filtering
+const contextFilter = ref('');
+const selectContext = (context) => {
+    contextFilter.value = context;
+};
+
+// Sorting
 const weightSorting = ref('');
 const sortWeights = () => {
     titleSorting.value = '';
@@ -73,7 +82,6 @@ const sortWeights = () => {
             break;
     }
 };
-
 const titleSorting = ref('');
 const sortTitles = () => {
     weightSorting.value = '';
@@ -89,12 +97,25 @@ const sortTitles = () => {
             break;
     }
 };
-
 const clearSorting = () => {
     document.getElementById('context-selector').value = '';
     contextFilter.value = '';
     weightSorting.value = '';
     titleSorting.value = '';
+    currentPage.value = 0;
+};
+
+// Pagination
+const currentPage = ref(0);
+const nextPage = () => {
+    if (currentPage.value <= filteredEncounters.value.length) {
+        currentPage.value = currentPage.value + props.pagination;
+    }
+};
+const previousPage = () => {
+    if ((currentPage.value) > 0) {
+        currentPage.value = currentPage.value - props.pagination;
+    }
 };
 </script>
 
@@ -109,7 +130,7 @@ const clearSorting = () => {
                 Create New Encounter
             </Link>
 
-            <table class="w-2/3 bg-white text-sm my-4">
+            <table class="w-2/3 bg-white text-sm mt-4">
                 <thead class="border-b-[3px] border-b-stone-300">
                 <tr>
                     <th class="border"></th>
@@ -192,6 +213,22 @@ const clearSorting = () => {
                 </tr>
                 </tbody>
             </table>
+            <div class="mb-4 flex w-2/3 justify-end">
+                <button
+                    class="bg-white p-1 border"
+                    @click="previousPage"
+                >Back
+                </button>
+                <div
+                    class="bg-white p-1 border"
+                >{{ (currentPage.valueOf() / props.pagination) + 1 }}
+                </div>
+                <button
+                    class="bg-white p-1 border"
+                    @click="nextPage"
+                >Next
+                </button>
+            </div>
         </div>
     </DefaultLayout>
 </template>

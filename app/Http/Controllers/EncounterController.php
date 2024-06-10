@@ -32,6 +32,7 @@ class EncounterController extends Controller
                 'encounters'   => $encounterData,
                 'create_url'   => route('encounter.create'),
                 'all_contexts' => Context::all(),
+                'pagination'   => 15,
             ]
         );
     }
