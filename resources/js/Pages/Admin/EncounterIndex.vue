@@ -30,6 +30,7 @@ const props = defineProps(
 // Filtering
 const contextFilter = ref('');
 const selectContext = (context) => {
+    currentPage.value = 0;
     contextFilter.value = context;
 };
 
@@ -124,7 +125,7 @@ const filteredEncountersLength = computed(() => {
 // Pagination
 const currentPage = ref(0);
 const nextPage = () => {
-    if (currentPage.value + props.pagination <= props.encounters.length) {
+    if (currentPage.value + props.pagination <= filteredEncountersLength.value) {
         currentPage.value = currentPage.value + props.pagination;
     }
 };
@@ -136,10 +137,13 @@ const previousPage = () => {
 const goToPage = (pageNumber) => {
     currentPage.value = (pageNumber - 1) * props.pagination;
 };
-const pages = ref([]);
-for (let i = 1; i <= Math.ceil(filteredEncountersLength.value / props.pagination); i++) {
-    pages.value.push(i);
-}
+const pages = computed(() => {
+    let pagesArray = [];
+    for (let i = 1; i <= Math.ceil(filteredEncountersLength.value / props.pagination); i++) {
+        pagesArray.push(i);
+    }
+    return pagesArray;
+});
 </script>
 
 <template>
