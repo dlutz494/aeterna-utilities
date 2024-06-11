@@ -3,6 +3,7 @@ import { Head, Link } from '@inertiajs/vue3';
 import DefaultLayout from '@/Layouts/DefaultLayout.vue';
 import { computed, ref } from 'vue';
 
+// Setup
 const props = defineProps(
     {
         encounters: {
@@ -19,15 +20,62 @@ const props = defineProps(
         create_url: { type: String },
         all_contexts: {
             type: Object
+        },
+        pagination: {
+            type: Number,
+            default: 25
         }
     });
 
+// Filtering
+const contextFilter = ref('');
 const selectContext = (context) => {
+    currentPage.value = 0;
     contextFilter.value = context;
 };
-const contextFilter = ref('');
-const filteredEncounters = computed(() => {
-    return props.encounters.filter((encounter) => {
+
+// Sorting
+const weightSorting = ref('');
+const sortWeights = () => {
+    titleSorting.value = '';
+    switch (weightSorting.value) {
+        case '':
+            weightSorting.value = 'ASC';
+            break;
+        case 'ASC':
+            weightSorting.value = 'DESC';
+            break;
+        case 'DESC':
+            weightSorting.value = '';
+            break;
+    }
+};
+const titleSorting = ref('');
+const sortTitles = () => {
+    weightSorting.value = '';
+    switch (titleSorting.value) {
+        case '':
+            titleSorting.value = 'ASC';
+            break;
+        case 'ASC':
+            titleSorting.value = 'DESC';
+            break;
+        case 'DESC':
+            titleSorting.value = '';
+            break;
+    }
+};
+const clearSorting = () => {
+    document.getElementById('context-selector').value = '';
+    contextFilter.value = '';
+    weightSorting.value = '';
+    titleSorting.value = '';
+    currentPage.value = 0;
+};
+
+// Encounter filtering/sorting/paginating
+const filterEncounters = (encounters) => {
+    return encounters.filter((encounter) => {
         if (contextFilter.value === '') {
             return props.encounters;
         } else if (contextFilter.value === 'N/A') {
@@ -37,7 +85,10 @@ const filteredEncounters = computed(() => {
                 return context?.id === parseInt(contextFilter.value);
             });
         }
-    }).sort((encounterA, encounterB) => {
+    });
+};
+const sortEncounters = (encounters) => {
+    return encounters.sort((encounterA, encounterB) => {
         switch (weightSorting.value) {
             case '':
                 return encounterA.id - encounterB.id;
@@ -56,46 +107,44 @@ const filteredEncounters = computed(() => {
                 return encounterA.title.localeCompare(encounterB.title);
         }
     });
+};
+const paginateEncounters = (encounters) => {
+    return encounters.slice(currentPage.value, currentPage.value + props.pagination);
+};
+
+// Encounter list
+const filteredEncounters = computed(() => {
+    let filtered = filterEncounters(props.encounters);
+    let sorted = sortEncounters(filtered);
+    return paginateEncounters(sorted);
+});
+const filteredEncountersLength = computed(() => {
+    let filtered = filterEncounters(props.encounters);
+    return filtered.length;
 });
 
-const weightSorting = ref('');
-const sortWeights = () => {
-    titleSorting.value = '';
-    switch (weightSorting.value) {
-        case '':
-            weightSorting.value = 'ASC';
-            break;
-        case 'ASC':
-            weightSorting.value = 'DESC';
-            break;
-        case 'DESC':
-            weightSorting.value = '';
-            break;
+// Pagination
+const currentPage = ref(0);
+const nextPage = () => {
+    if (currentPage.value + props.pagination <= filteredEncountersLength.value) {
+        currentPage.value = currentPage.value + props.pagination;
     }
 };
-
-const titleSorting = ref('');
-const sortTitles = () => {
-    weightSorting.value = '';
-    switch (titleSorting.value) {
-        case '':
-            titleSorting.value = 'ASC';
-            break;
-        case 'ASC':
-            titleSorting.value = 'DESC';
-            break;
-        case 'DESC':
-            titleSorting.value = '';
-            break;
+const previousPage = () => {
+    if ((currentPage.value) > 0) {
+        currentPage.value = currentPage.value - props.pagination;
     }
 };
-
-const clearSorting = () => {
-    document.getElementById('context-selector').value = '';
-    contextFilter.value = '';
-    weightSorting.value = '';
-    titleSorting.value = '';
+const goToPage = (pageNumber) => {
+    currentPage.value = (pageNumber - 1) * props.pagination;
 };
+const pages = computed(() => {
+    let pagesArray = [];
+    for (let i = 1; i <= Math.ceil(filteredEncountersLength.value / props.pagination); i++) {
+        pagesArray.push(i);
+    }
+    return pagesArray;
+});
 </script>
 
 <template>
@@ -109,7 +158,7 @@ const clearSorting = () => {
                 Create New Encounter
             </Link>
 
-            <table class="w-2/3 bg-white text-sm my-4">
+            <table class="w-2/3 bg-white text-sm mt-4">
                 <thead class="border-b-[3px] border-b-stone-300">
                 <tr>
                     <th class="border"></th>
@@ -192,6 +241,26 @@ const clearSorting = () => {
                 </tr>
                 </tbody>
             </table>
+            <div class="mb-4 flex w-2/3 justify-end">
+                <button
+                    class="bg-white p-1 border"
+                    @click="previousPage"
+                >Back
+                </button>
+                <div v-for="page in pages">
+                    <button
+                        class="bg-white p-1 border"
+                        @click="goToPage(page)"
+                        :class="{ 'text-sky-400' : (currentPage === (page - 1) * props.pagination) }"
+                    >{{ page }}
+                    </button>
+                </div>
+                <button
+                    class="bg-white p-1 border"
+                    @click="nextPage"
+                >Next
+                </button>
+            </div>
         </div>
     </DefaultLayout>
 </template>

@@ -28,6 +28,7 @@ class ContextController extends Controller
             [
                 'contexts'   => $contextData,
                 'create_url' => route('context.create'),
+                'pagination' => 15,
             ]
         );
     }

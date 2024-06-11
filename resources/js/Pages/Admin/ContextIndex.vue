@@ -13,9 +13,14 @@ const props = defineProps(
                 delete_url: String
             }
         },
-        create_url: { type: String }
+        create_url: { type: String },
+        pagination: {
+            type: Number,
+            default: 25
+        }
     });
 
+// Sorting
 const titleSorting = ref('');
 const sortTitles = () => {
     switch (titleSorting.value) {
@@ -30,8 +35,10 @@ const sortTitles = () => {
             break;
     }
 };
-const sortedContexts = computed(() => {
-    return props.contexts.sort((contextA, contextB) => {
+
+// Context filtering/sorting/paginating
+const sortContexts = (contexts) => {
+    return contexts.sort((contextA, contextB) => {
         switch (titleSorting.value) {
             case '':
                 return contextA.id - contextB.id;
@@ -41,6 +48,42 @@ const sortedContexts = computed(() => {
                 return contextA.title.localeCompare(contextB.title);
         }
     });
+};
+const paginateContexts = (contexts) => {
+    return contexts.slice(currentPage.value, currentPage.value + props.pagination);
+};
+
+// Context list
+const sortedContexts = computed(() => {
+    let sorted = sortContexts(props.contexts);
+    return paginateContexts(sorted);
+});
+const sortedContextsLength = computed(() => {
+    let sorted = sortContexts(props.contexts);
+    return sorted.length;
+});
+
+// Pagination
+const currentPage = ref(0);
+const nextPage = () => {
+    if (currentPage.value + props.pagination <= sortedContextsLength.value) {
+        currentPage.value = currentPage.value + props.pagination;
+    }
+};
+const previousPage = () => {
+    if ((currentPage.value) > 0) {
+        currentPage.value = currentPage.value - props.pagination;
+    }
+};
+const goToPage = (pageNumber) => {
+    currentPage.value = (pageNumber - 1) * props.pagination;
+};
+const pages = computed(() => {
+    let pagesArray = [];
+    for (let i = 1; i <= Math.ceil(sortedContextsLength.value / props.pagination); i++) {
+        pagesArray.push(i);
+    }
+    return pagesArray;
 });
 </script>
 
@@ -55,7 +98,7 @@ const sortedContexts = computed(() => {
                 Create New Context
             </Link>
 
-            <table class="w-2/3 bg-white text-sm my-4">
+            <table class="w-2/3 bg-white text-sm mt-4">
                 <thead class="border-b-[3px] border-b-stone-300">
                 <tr>
                     <th class="border text-start p-4 hover:cursor-pointer" @click="sortTitles">Title {{
@@ -91,6 +134,26 @@ const sortedContexts = computed(() => {
                 </tr>
                 </tbody>
             </table>
+            <div class="mb-4 flex w-2/3 justify-end">
+                <button
+                    class="bg-white p-1 border"
+                    @click="previousPage"
+                >Back
+                </button>
+                <div v-for="page in pages">
+                    <button
+                        class="bg-white p-1 border"
+                        @click="goToPage(page)"
+                        :class="{ 'text-sky-400' : (currentPage === (page - 1) * props.pagination) }"
+                    >{{ page }}
+                    </button>
+                </div>
+                <button
+                    class="bg-white p-1 border"
+                    @click="nextPage"
+                >Next
+                </button>
+            </div>
         </div>
     </DefaultLayout>
 </template>
