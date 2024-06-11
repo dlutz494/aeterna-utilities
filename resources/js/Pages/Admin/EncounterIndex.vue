@@ -73,6 +73,7 @@ const clearSorting = () => {
     currentPage.value = 0;
 };
 
+// Encounter filtering/sorting/paginating
 const filterEncounters = (encounters) => {
     return encounters.filter((encounter) => {
         if (contextFilter.value === '') {
