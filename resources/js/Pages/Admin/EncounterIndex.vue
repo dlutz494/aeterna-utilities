@@ -27,39 +27,6 @@ const props = defineProps(
         }
     });
 
-// Encounter list
-const filteredEncounters = computed(() => {
-    return props.encounters.filter((encounter) => {
-        if (contextFilter.value === '') {
-            return props.encounters;
-        } else if (contextFilter.value === 'N/A') {
-            return encounter.contexts.length === 0;
-        } else {
-            return encounter.contexts.find(function (context) {
-                return context?.id === parseInt(contextFilter.value);
-            });
-        }
-    }).sort((encounterA, encounterB) => {
-        switch (weightSorting.value) {
-            case '':
-                return encounterA.id - encounterB.id;
-            case 'DESC':
-                return encounterB.weight - encounterA.weight;
-            case 'ASC':
-                return encounterA.weight - encounterB.weight;
-        }
-    }).sort((encounterA, encounterB) => {
-        switch (titleSorting.value) {
-            case '':
-                return 0;
-            case 'DESC':
-                return encounterB.title.localeCompare(encounterA.title);
-            case 'ASC':
-                return encounterA.title.localeCompare(encounterB.title);
-        }
-    }).slice(currentPage.value, currentPage.value + props.pagination);
-});
-
 // Filtering
 const contextFilter = ref('');
 const selectContext = (context) => {
@@ -105,6 +72,55 @@ const clearSorting = () => {
     currentPage.value = 0;
 };
 
+const filterEncounters = (encounters) => {
+    return encounters.filter((encounter) => {
+        if (contextFilter.value === '') {
+            return props.encounters;
+        } else if (contextFilter.value === 'N/A') {
+            return encounter.contexts.length === 0;
+        } else {
+            return encounter.contexts.find(function (context) {
+                return context?.id === parseInt(contextFilter.value);
+            });
+        }
+    });
+};
+const sortEncounters = (encounters) => {
+    return encounters.sort((encounterA, encounterB) => {
+        switch (weightSorting.value) {
+            case '':
+                return encounterA.id - encounterB.id;
+            case 'DESC':
+                return encounterB.weight - encounterA.weight;
+            case 'ASC':
+                return encounterA.weight - encounterB.weight;
+        }
+    }).sort((encounterA, encounterB) => {
+        switch (titleSorting.value) {
+            case '':
+                return 0;
+            case 'DESC':
+                return encounterB.title.localeCompare(encounterA.title);
+            case 'ASC':
+                return encounterA.title.localeCompare(encounterB.title);
+        }
+    });
+};
+const paginateEncounters = (encounters) => {
+    return encounters.slice(currentPage.value, currentPage.value + props.pagination);
+};
+
+// Encounter list
+const filteredEncounters = computed(() => {
+    let filtered = filterEncounters(props.encounters);
+    let sorted = sortEncounters(filtered);
+    return paginateEncounters(sorted);
+});
+const filteredEncountersLength = computed(() => {
+    let filtered = filterEncounters(props.encounters);
+    return filtered.length;
+});
+
 // Pagination
 const currentPage = ref(0);
 const nextPage = () => {
@@ -117,6 +133,13 @@ const previousPage = () => {
         currentPage.value = currentPage.value - props.pagination;
     }
 };
+const goToPage = (pageNumber) => {
+    currentPage.value = (pageNumber - 1) * props.pagination;
+};
+const pages = ref([]);
+for (let i = 1; i <= Math.ceil(filteredEncountersLength.value / props.pagination); i++) {
+    pages.value.push(i);
+}
 </script>
 
 <template>
@@ -219,9 +242,13 @@ const previousPage = () => {
                     @click="previousPage"
                 >Back
                 </button>
-                <div
-                    class="bg-white p-1 border"
-                >{{ (currentPage.valueOf() / props.pagination) + 1 }}
+                <div v-for="page in pages">
+                    <button
+                        class="bg-white p-1 border"
+                        @click="goToPage(page)"
+                        :class="{ 'text-sky-400' : (currentPage === (page - 1) * props.pagination) }"
+                    >{{ page }}
+                    </button>
                 </div>
                 <button
                     class="bg-white p-1 border"
