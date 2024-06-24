@@ -20,7 +20,7 @@ class EncounterController extends Controller
                 'title'       => $encounter->title,
                 'description' => $encounter->description,
                 'contexts'    => $encounter->contexts ?? null,
-                'weight'      => $encounter->weight,
+                'weights'     => $encounter->weights,
                 'edit_url'    => route('encounter.edit', $encounter),
                 'delete_url'  => route('encounter.delete', $encounter),
             ];

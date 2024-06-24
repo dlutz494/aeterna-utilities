@@ -218,7 +218,13 @@ const pages = computed(() => {
                             </li>
                         </ul>
                     </td>
-                    <td class="border text-start px-4 py-2">{{ encounter.weight }}</td>
+                    <td class="border text-start px-4 py-2">
+                        <ul>
+                            <li v-for="weight in encounter.weights">
+                                {{ weight }}
+                            </li>
+                        </ul>
+                    </td>
                     <td class="border text-center px-4 py-2">
                         <Link
                             class="hover:text-gray-700"
