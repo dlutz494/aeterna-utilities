@@ -23,9 +23,14 @@ class Encounter extends Model
         'description',
     ];
 
-    public function getWeightAttribute()
+    public function getWeightAttribute(): int
     {
         return $this->contextEncounters->first()?->weight;
+    }
+
+    public function getWeightsAttribute(): array
+    {
+        return $this->contextEncounters()->pluck('weight')->all();
     }
 
     public function contextEncounters(): HasMany
