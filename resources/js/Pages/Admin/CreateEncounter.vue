@@ -14,7 +14,7 @@ const form = useForm({
     title: null,
     description: null,
     contexts: [],
-    weight: null
+    weights: [0]
 });
 
 function submit () {
@@ -23,6 +23,7 @@ function submit () {
 
 function addContext () {
     form.contexts.push(props.all_contexts[0].id);
+    form.contexts.length > 1 ? form.weights.push(0) : null;
 }
 
 function removeContext (key) {
@@ -55,10 +56,23 @@ function removeContext (key) {
                     v-model:field-value="form.description"
                     v-model:errors="form.errors.description"
                 />
+                <TextInput
+                    v-if="form.contexts.length <= 0"
+                    field-key="weight0"
+                    field-title="Weight"
+                    v-model:field-value="form.weights[0]"
+                    v-model:errors="form.errors.weights"
+                />
                 <div class="col-span-full mb-2">
                     <div v-for="(context_id, key) in form.contexts" class="grid grid-cols-4">
+                        <TextInput
+                            :field-key="`weight` + key"
+                            field-title="Weight"
+                            v-model:field-value="form.weights[key]"
+                            v-model:errors="form.errors['weights.' + key]"
+                        />
                         <DropdownInput
-                            :field-key="key"
+                            :field-key="`context` + key"
                             field-title="Context"
                             :options="all_contexts"
                             v-model:field-value="form.contexts[key]"
@@ -77,19 +91,13 @@ function removeContext (key) {
                         Add a Context
                     </button>
                 </div>
-                <TextInput
-                    field-key="weight"
-                    field-title="Weight"
-                    v-model:field-value="form.weight"
-                    v-model:errors="form.errors.weight"
-                />
                 <button type="submit"
-                        class="text-white uppercase text-sm font-bold bg-sky-400 hover:bg-sky-300 active:bg-sky-400 rounded-sm py-2 col-start-2 mr-1"
+                        class="text-white uppercase text-sm font-bold bg-sky-400 hover:bg-sky-300 active:bg-sky-400 rounded-sm py-2 col-start-2 mr-1 mb-2"
                         :disabled="form.processing">
                     Submit
                 </button>
                 <button type="reset"
-                        class="text-white uppercase text-sm font-bold bg-sky-400 hover:bg-sky-300 active:bg-sky-400 rounded-sm py-2 col-start-3 ml-1">
+                        class="text-white uppercase text-sm font-bold bg-sky-400 hover:bg-sky-300 active:bg-sky-400 rounded-sm py-2 col-start-3 ml-1 mb-2">
                     Reset
                 </button>
             </form>
