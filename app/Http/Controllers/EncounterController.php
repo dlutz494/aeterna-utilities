@@ -84,7 +84,7 @@ class EncounterController extends Controller
             [
                 'encounter'    => $encounter,
                 'contexts'     => $encounter->contexts ?? null,
-                'weight'       => $encounter->weight,
+                'weights'      => $encounter->weights,
                 'all_contexts' => Context::all(),
             ]
         );
@@ -99,15 +99,15 @@ class EncounterController extends Controller
 
         $encounter->contextEncounters()->delete();
         if ($request->validated('contexts')) {
-            foreach ($request->validated('contexts') as $context) {
+            foreach ($request->validated('contexts') as $key => $context) {
                 $encounter->contextEncounters()->create([
-                    'weight'     => $request->validated('weight'),
+                    'weight'     => $request->validated('weights')[$key],
                     'context_id' => $context,
                 ]);
             }
         } else {
             $encounter->contextEncounters()->create([
-                'weight' => $request->validated('weight'),
+                'weight' => $request->validated('weights')[0],
             ]);
         }
 

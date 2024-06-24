@@ -9,7 +9,7 @@ import DefaultLayout from '@/Layouts/DefaultLayout.vue';
 const props = defineProps([
     'encounter',
     'contexts',
-    'weight',
+    'weights',
     'all_contexts'
 ]);
 
@@ -18,10 +18,11 @@ const form = useForm({
     title: props.encounter.title,
     description: props.encounter.description,
     contexts: props.contexts.length !== 0 ? props.contexts.map((context) => {
-        return context.id
+        return context.id;
     }) : [],
-    weight: props.weight
+    weights: props.weights
 });
+
 function submit () {
     form.post(route('encounter.doEdit', props.encounter));
 }
@@ -29,6 +30,7 @@ function submit () {
 function addContext () {
     form.contexts.push(props.all_contexts[0].id);
 }
+
 function removeContext (key) {
     form.contexts.splice(key, 1);
 }
@@ -59,10 +61,23 @@ function removeContext (key) {
                     v-model:field-value="form.description"
                     v-model:errors="form.errors.description"
                 />
+                <TextInput
+                    v-if="form.contexts.length <= 0"
+                    field-key="weight"
+                    field-title="Weight"
+                    v-model:field-value="form.weights[0]"
+                    v-model:errors="form.errors.weights"
+                />
                 <div class="col-span-full mb-2">
                     <div v-for="(context_id, key) in form.contexts" class="grid grid-cols-4">
+                        <TextInput
+                            :field-key="`weight` + key"
+                            field-title="Weight"
+                            v-model:field-value="form.weights[key]"
+                            v-model:errors="form.errors['weights.' + key]"
+                        />
                         <DropdownInput
-                            :field-key="key"
+                            :field-key="`context` + key"
                             field-title="Context"
                             :options="all_contexts"
                             v-model:field-value="form.contexts[key]"
@@ -81,12 +96,6 @@ function removeContext (key) {
                         Add a Context
                     </button>
                 </div>
-                <TextInput
-                    field-key="weight"
-                    field-title="Weight"
-                    v-model:field-value="form.weight"
-                    v-model:errors="form.errors.weight"
-                />
                 <Link :href="route('encounter.delete', props.encounter)"
                       method="delete"
                       as="button"
