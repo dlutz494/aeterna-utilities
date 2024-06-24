@@ -13,7 +13,7 @@ const errors = defineModel('errors');
 
 <template>
     <label :for="props.fieldKey"
-           class="dark:text-white content-center"
+           class="content-center"
     >
         {{ props.fieldTitle }}:
     </label>
