@@ -2,8 +2,9 @@
 import { Head, Link, useForm } from '@inertiajs/vue3';
 import TextInput from '@/Components/Custom/TextInput.vue';
 import TextBoxInput from '@/Components/Custom/TextBoxInput.vue';
-import DropdownInput from '@/Components/Custom/DropdownInput.vue';
 import DefaultLayout from '@/Layouts/DefaultLayout.vue';
+import { computed } from 'vue';
+import SelectContextFormInput from '@/Components/Custom/SelectContextFormInput.vue';
 
 // Props
 const props = defineProps([
@@ -28,12 +29,30 @@ function submit () {
 }
 
 function addContext () {
-    form.contexts.push(props.all_contexts[0].id);
+    form.contexts.push(0);
+    form.contexts.length > 1 ? form.weights.push(0) : null;
 }
 
 function removeContext (key) {
     form.contexts.splice(key, 1);
 }
+
+const selectedContexts = computed(() => {
+    return props.all_contexts.map((context) => {
+        if (form.contexts.includes(context.id)) {
+            return {
+                id: context.id,
+                title: context.title,
+                selected: true
+            };
+        }
+        return {
+            id: context.id,
+            title: context.title,
+            selected: false
+        };
+    });
+});
 </script>
 
 <template>
@@ -76,19 +95,15 @@ function removeContext (key) {
                             v-model:field-value="form.weights[key]"
                             v-model:errors="form.errors['weights.' + key]"
                         />
-                        <DropdownInput
+                        <SelectContextFormInput
                             :field-key="`context` + key"
                             field-title="Context"
-                            :options="all_contexts"
+                            :options="selectedContexts"
                             v-model:field-value="form.contexts[key]"
-                            v-model:errors="form.errors.contexts"
+                            v-model:errors="form.errors['contexts.' + key]"
+                            @context-remove="removeContext(key)"
+                            :hide-button="form.contexts.length < 1"
                         />
-                        <button type="button"
-                                class="col-span-1 text-white uppercase text-xs font-bold bg-sky-400 hover:bg-sky-300 active:bg-sky-400 rounded-sm ml-2 mb-2"
-                                @click="removeContext(key)"
-                                :class="{ hidden : form.contexts.length < 1}">
-                            Remove Context
-                        </button>
                     </div>
                     <button type="button"
                             class="col-span-1 text-white uppercase text-xs font-bold bg-sky-400 hover:bg-sky-300 active:bg-sky-400 rounded-sm px-4 py-2"
@@ -99,16 +114,16 @@ function removeContext (key) {
                 <Link :href="route('encounter.delete', props.encounter)"
                       method="delete"
                       as="button"
-                      class="text-white uppercase text-sm font-bold bg-red-500 hover:bg-red-400 active:bg-sky-400 rounded-sm p-1 mx-1">
+                      class="text-white uppercase text-sm font-bold bg-red-500 hover:bg-red-400 active:bg-sky-400 rounded-sm p-1 mx-1 mb-2">
                     Delete Encounter
                 </Link>
                 <button type="submit"
-                        class="text-white uppercase text-sm font-bold bg-sky-400 hover:bg-sky-300 active:bg-sky-400 rounded-sm py-2 col-start-2 mr-1"
+                        class="text-white uppercase text-sm font-bold bg-sky-400 hover:bg-sky-300 active:bg-sky-400 rounded-sm py-2 col-start-2 mr-1 mb-2"
                         :disabled="form.processing">
                     Submit
                 </button>
                 <button type="reset"
-                        class="text-white uppercase text-sm font-bold bg-sky-400 hover:bg-sky-300 active:bg-sky-400 rounded-sm py-2 col-start-3 ml-1">
+                        class="text-white uppercase text-sm font-bold bg-sky-400 hover:bg-sky-300 active:bg-sky-400 rounded-sm py-2 col-start-3 ml-1 mb-2">
                     Reset
                 </button>
             </form>
