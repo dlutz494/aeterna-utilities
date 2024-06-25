@@ -27,8 +27,8 @@ class EditEncounterRequest extends FormRequest
             'description' => ['required', 'string'],
             'contexts'    => ['present', 'array'],
             'contexts.*'  => ['present', 'exists:contexts,id', 'distinct'],
-            'weights'     => ['required', 'array'],
-            'weights.*'   => ['integer', 'min:1'],
+            'weights'     => ['array'],
+            'weights.*'   => ['required', 'integer', 'min:1'],
         ];
     }
 
@@ -43,7 +43,8 @@ class EditEncounterRequest extends FormRequest
             'description.string'   => 'The Description has to be a string',
             'contexts.*.exists'    => 'That Context does not exist',
             'contexts.*.distinct'  => 'That Context is already selected',
-            'weights.required'     => 'A Weight is needed',
+            'weights'              => 'Weights need to be in array form',
+            'weights.*.required'   => 'A Weight is needed',
             'weights.*.integer'    => 'Weight has to be an integer',
             'weights.*.min'        => 'Weight has to be greater than 0',
         ];
