@@ -6,9 +6,15 @@ const props = defineProps([
     'options'
 ]);
 
+// Emits
+const emits = defineEmits([
+    'context-remove'
+])
+
 // Models
 const fieldValue = defineModel('fieldValue');
 const errors = defineModel('errors');
+const hideButton = defineModel('hideButton')
 </script>
 
 <template>
@@ -24,8 +30,17 @@ const errors = defineModel('errors');
             v-model="fieldValue">
         <option v-for="option in options"
                 :value="option.id"
+                :disabled="option.selected"
         >{{ option.title }}
         </option>
     </select>
+    <button type="button"
+            class="col-span-1 text-white uppercase text-xs font-bold bg-sky-400 hover:bg-sky-300 active:bg-sky-400 rounded-sm ml-2"
+            :class="{'mb-2' : !errors}"
+            @click="emits('context-remove')"
+            :hidden="hideButton"
+    >
+        Remove Context
+    </button>
     <div v-if="errors" class="col-start-2 col-span-2 text-red-500 mb-2">{{ errors }}</div>
 </template>

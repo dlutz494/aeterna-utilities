@@ -18,8 +18,10 @@ class CreateEncounterRequest extends FormRequest
         return [
             'title'       => ['required', 'string', 'unique:encounters', 'max:' . self::MAX_TITLE_LENGTH],
             'description' => ['required', 'string'],
-            'contexts'    => ['present', 'exists:contexts,id'],
-            'weight'      => ['required', 'integer', 'min:1'],
+            'contexts'    => ['present', 'array'],
+            'contexts.*'  => ['present', 'exists:contexts,id'],
+            'weights'     => ['required', 'array'],
+            'weights.*'   => ['integer', 'min:1'],
         ];
     }
 
@@ -32,10 +34,10 @@ class CreateEncounterRequest extends FormRequest
             'title.max'            => 'That Title is too long (Maximum ' . self::MAX_TITLE_LENGTH . ' Characters)',
             'description.required' => 'A Description is needed',
             'description.string'   => 'The Description has to be a string',
-            'contexts.exists'      => 'That Context does not exist',
-            'weight.required'      => 'A Weight is needed',
-            'weight.integer'       => 'The Weight has to be an integer',
-            'weight.min'           => 'The Weight has to be greater than 0',
+            'contexts.*.exists'    => 'That Context does not exist',
+            'weights.required'     => 'A Weight is needed',
+            'weights.*.integer'    => 'Weight has to be an integer',
+            'weights.*.min'        => 'Weight has to be greater than 0',
         ];
     }
 }

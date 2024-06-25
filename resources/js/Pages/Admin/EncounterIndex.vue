@@ -4,28 +4,27 @@ import DefaultLayout from '@/Layouts/DefaultLayout.vue';
 import { computed, ref } from 'vue';
 
 // Setup
-const props = defineProps(
-    {
-        encounters: {
-            type: {
-                id: Number,
-                title: String,
-                description: String,
-                contexts: Array,
-                weight: Object,
-                edit_url: String,
-                delete_url: String
-            }
-        },
-        create_url: { type: String },
-        all_contexts: {
-            type: Object
-        },
-        pagination: {
-            type: Number,
-            default: 25
+const props = defineProps({
+    encounters: {
+        type: {
+            id: Number,
+            title: String,
+            description: String,
+            contexts: Array,
+            weight: Object,
+            edit_url: String,
+            delete_url: String
         }
-    });
+    },
+    create_url: { type: String },
+    all_contexts: {
+        type: Object
+    },
+    pagination: {
+        type: Number,
+        default: 25
+    }
+});
 
 // Filtering
 const contextFilter = ref('');
@@ -93,9 +92,9 @@ const sortEncounters = (encounters) => {
             case '':
                 return encounterA.id - encounterB.id;
             case 'DESC':
-                return encounterB.weight - encounterA.weight;
+                return encounterB.weights[0] - encounterA.weights[0];
             case 'ASC':
-                return encounterA.weight - encounterB.weight;
+                return encounterA.weights[0] - encounterB.weights[0];
         }
     }).sort((encounterA, encounterB) => {
         switch (titleSorting.value) {
@@ -191,25 +190,25 @@ const pages = computed(() => {
                     </th>
                 </tr>
                 <tr>
-                    <th class="border text-start p-4 hover:cursor-pointer w-1/5" @click="sortTitles">Title {{
+                    <th class="border text-start p-4 hover:cursor-pointer w-[12%]" @click="sortTitles">Title {{
                             titleSorting.valueOf() === 'ASC' ? '▲' :
                                 titleSorting.valueOf() === 'DESC' ? '▼' : ''
                         }}
                     </th>
                     <th class="border text-start p-4 w-1/2">Description</th>
-                    <th class="border text-start p-4 w-[10%]">Context(s)</th>
-                    <th class="border text-start p-4 hover:cursor-pointer w-[10%]" @click="sortWeights">Weight {{
+                    <th class="border text-start p-4 w-[12%]">Context(s)</th>
+                    <th class="border text-start p-4 hover:cursor-pointer w-[12%]" @click="sortWeights">Weight(s) {{
                             weightSorting.valueOf() === 'ASC' ? '▲' :
                                 weightSorting.valueOf() === 'DESC' ? '▼' : ''
                         }}
                     </th>
-                    <th class="border text-center p-4 italic font-normal w-[10%]">Actions</th>
+                    <th class="border text-center p-4 italic font-normal w-[12%]">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr v-for="encounter in filteredEncounters" class="odd:bg-stone-100">
                     <td class="border text-start px-4 py-2">{{ encounter.title }}</td>
-                    <td class="border text-start w-1/2 px-4 py-2">{{ encounter.description }}</td>
+                    <td class="border text-start px-4 py-2">{{ encounter.description }}</td>
                     <td class="border text-start px-4 py-2">
                         <div v-if="encounter.contexts.length === 0">Anywhere</div>
                         <ul v-else>
@@ -218,7 +217,13 @@ const pages = computed(() => {
                             </li>
                         </ul>
                     </td>
-                    <td class="border text-start px-4 py-2">{{ encounter.weight }}</td>
+                    <td class="border text-start px-4 py-2">
+                        <ul>
+                            <li v-for="weight in encounter.weights">
+                                {{ weight }}
+                            </li>
+                        </ul>
+                    </td>
                     <td class="border text-center px-4 py-2">
                         <Link
                             class="hover:text-gray-700"
