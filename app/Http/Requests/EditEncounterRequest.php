@@ -25,7 +25,8 @@ class EditEncounterRequest extends FormRequest
                 'max:' . self::MAX_TITLE_LENGTH,
             ],
             'description' => ['required', 'string'],
-            'contexts'    => ['exists:contexts,id'],
+            'contexts'    => ['present', 'array'],
+            'contexts.*'  => ['present', 'exists:contexts,id'],
             'weights'     => ['required', 'array'],
             'weights.*'   => ['integer', 'min:1'],
         ];
@@ -40,7 +41,7 @@ class EditEncounterRequest extends FormRequest
             'title.max'            => 'That Title is too long (Maximum ' . self::MAX_TITLE_LENGTH . ' Characters)',
             'description.required' => 'A Description is needed',
             'description.string'   => 'The Description has to be a string',
-            'contexts.exists'      => 'That Context does not exist',
+            'contexts.*.exists'    => 'That Context does not exist',
             'weights.required'     => 'A Weight is needed',
             'weights.*.integer'    => 'Weight has to be an integer',
             'weights.*.min'        => 'Weight has to be greater than 0',
