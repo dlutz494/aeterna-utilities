@@ -191,25 +191,25 @@ const pages = computed(() => {
                     </th>
                 </tr>
                 <tr>
-                    <th class="border text-start p-4 hover:cursor-pointer w-1/5" @click="sortTitles">Title {{
+                    <th class="border text-start p-4 hover:cursor-pointer w-[12%]" @click="sortTitles">Title {{
                             titleSorting.valueOf() === 'ASC' ? '▲' :
                                 titleSorting.valueOf() === 'DESC' ? '▼' : ''
                         }}
                     </th>
                     <th class="border text-start p-4 w-1/2">Description</th>
-                    <th class="border text-start p-4 w-[10%]">Context(s)</th>
-                    <th class="border text-start p-4 hover:cursor-pointer w-[10%]" @click="sortWeights">Weight {{
+                    <th class="border text-start p-4 w-[12%]">Context(s)</th>
+                    <th class="border text-start p-4 hover:cursor-pointer w-[12%]" @click="sortWeights">Weight(s) {{
                             weightSorting.valueOf() === 'ASC' ? '▲' :
                                 weightSorting.valueOf() === 'DESC' ? '▼' : ''
                         }}
                     </th>
-                    <th class="border text-center p-4 italic font-normal w-[10%]">Actions</th>
+                    <th class="border text-center p-4 italic font-normal w-[12%]">Actions</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr v-for="encounter in filteredEncounters" class="odd:bg-stone-100">
                     <td class="border text-start px-4 py-2">{{ encounter.title }}</td>
-                    <td class="border text-start w-1/2 px-4 py-2">{{ encounter.description }}</td>
+                    <td class="border text-start px-4 py-2">{{ encounter.description }}</td>
                     <td class="border text-start px-4 py-2">
                         <div v-if="encounter.contexts.length === 0">Anywhere</div>
                         <ul v-else>
