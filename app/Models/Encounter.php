@@ -25,7 +25,7 @@ class Encounter extends Model
 
     public function getWeightAttribute(): int
     {
-        return $this->contextEncounters->first()?->weight;
+        return $this->contextEncounters()->pluck('weight')->first();
     }
 
     public function getWeightsAttribute(): array
