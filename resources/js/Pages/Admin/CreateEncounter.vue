@@ -23,7 +23,7 @@ function submit () {
 }
 
 function addContext () {
-    form.contexts.push(0);
+    form.contexts.push(props.all_contexts[0].id);
     form.contexts.length > 1 ? form.weights.push(0) : null;
 }
 
@@ -75,15 +75,16 @@ const selectedContexts = computed(() => {
                     v-model:errors="form.errors.description"
                 />
                 <TextInput
-                    v-if="form.contexts.length <= 0"
+                    v-if="form.contexts.length <= 1"
                     field-key="weight0"
                     field-title="Weight"
                     v-model:field-value="form.weights[0]"
-                    v-model:errors="form.errors.weights"
+                    v-model:errors="form.errors['weights.0']"
                 />
                 <div class="col-span-full mb-2">
                     <div v-for="(context_id, key) in form.contexts" class="grid grid-cols-4">
                         <TextInput
+                            v-if="form.contexts.length > 1"
                             :field-key="`weight` + key"
                             field-title="Weight"
                             v-model:field-value="form.weights[key]"
