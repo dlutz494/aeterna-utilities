@@ -93,9 +93,9 @@ const sortEncounters = (encounters) => {
             case '':
                 return encounterA.id - encounterB.id;
             case 'DESC':
-                return encounterB.weight - encounterA.weight;
+                return encounterB.weights[0] - encounterA.weights[0];
             case 'ASC':
-                return encounterA.weight - encounterB.weight;
+                return encounterA.weights[0] - encounterB.weights[0];
         }
     }).sort((encounterA, encounterB) => {
         switch (titleSorting.value) {
