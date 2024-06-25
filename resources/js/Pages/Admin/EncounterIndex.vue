@@ -4,28 +4,27 @@ import DefaultLayout from '@/Layouts/DefaultLayout.vue';
 import { computed, ref } from 'vue';
 
 // Setup
-const props = defineProps(
-    {
-        encounters: {
-            type: {
-                id: Number,
-                title: String,
-                description: String,
-                contexts: Array,
-                weight: Object,
-                edit_url: String,
-                delete_url: String
-            }
-        },
-        create_url: { type: String },
-        all_contexts: {
-            type: Object
-        },
-        pagination: {
-            type: Number,
-            default: 25
+const props = defineProps({
+    encounters: {
+        type: {
+            id: Number,
+            title: String,
+            description: String,
+            contexts: Array,
+            weight: Object,
+            edit_url: String,
+            delete_url: String
         }
-    });
+    },
+    create_url: { type: String },
+    all_contexts: {
+        type: Object
+    },
+    pagination: {
+        type: Number,
+        default: 25
+    }
+});
 
 // Filtering
 const contextFilter = ref('');
