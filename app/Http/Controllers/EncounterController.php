@@ -108,7 +108,8 @@ class EncounterController extends Controller
             }
         } else {
             $encounter->contextEncounters()->create([
-                'weight' => $request->validated('weights')[0],
+                'weight'     => $request->validated('weights')[0],
+                'context_id' => null,
             ]);
         }
 
