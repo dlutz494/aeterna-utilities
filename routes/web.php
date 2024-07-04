@@ -35,7 +35,7 @@ Route::get('/context', [ContextController::class, 'create'])->name('context.crea
 Route::post('/context', [ContextController::class, 'doCreate'])->name('context.doCreate');
 Route::get('/context/{context}', [ContextController::class, 'edit'])->name('context.edit');
 Route::post('/context/{context}', [ContextController::class, 'doEdit'])->name('context.doEdit');
-Route::delete('/context/{context}', [ContextController::class, 'doDelete'])->name('context.delete');
+Route::delete('/context/{context}', [ContextController::class, 'doDelete'])->name('context.doDelete');
 
 Route::get('/encounters', [EncounterController::class, 'index'])->name('encounter.index');
 Route::get('/encounter', [EncounterController::class, 'create'])->name('encounter.create');
