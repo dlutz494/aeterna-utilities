@@ -29,8 +29,8 @@ jobs:
         mkdir -p database
         touch database/database.sqlite
         php artisan migrate:fresh
-    - name: Run Prod
-      run: npm run prod
+    - name: Run Build
+      run: npm run build
     - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
       env:
         DB_CONNECTION: sqlite
