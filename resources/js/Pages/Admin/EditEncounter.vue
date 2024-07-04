@@ -112,7 +112,7 @@ const selectedContexts = computed(() => {
                         Add a Context
                     </button>
                 </div>
-                <Link :href="route('encounter.delete', props.encounter)"
+                <Link :href="route('encounter.doDelete', props.encounter)"
                       method="delete"
                       as="button"
                       class="text-white uppercase text-sm font-bold bg-red-500 hover:bg-red-400 active:bg-sky-400 rounded-sm p-1 mx-1 mb-2">

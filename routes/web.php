@@ -41,8 +41,8 @@ Route::get('/encounters', [EncounterController::class, 'index'])->name('encounte
 Route::get('/encounter', [EncounterController::class, 'create'])->name('encounter.create');
 Route::post('/encounter', [EncounterController::class, 'doCreate'])->name('encounter.doCreate');
 Route::get('/encounter/{encounter}', [EncounterController::class, 'edit'])->name('encounter.edit');
-Route::post('/encounter/{encounter}', [EncounterController::class, 'doEdit'])->name('encounter.doEdit');
-Route::delete('/encounter/{encounter}', [EncounterController::class, 'doDelete'])->name('encounter.delete');
+Route::patch('/encounter/{encounter}', [EncounterController::class, 'doEdit'])->name('encounter.doEdit');
+Route::delete('/encounter/{encounter}', [EncounterController::class, 'doDelete'])->name('encounter.doDelete');
 
 Route::get('/generator', GeneratorController::class)->name('generator');
 
