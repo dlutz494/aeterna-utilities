@@ -38,7 +38,7 @@ function submit () {
                     v-model:field-value="form.title"
                     v-model:errors="form.errors.title"
                 />
-                <Link :href="route('context.delete', props.context)"
+                <Link :href="route('context.doDelete', props.context)"
                       method="delete"
                       as="button"
                       class="text-white uppercase text-sm font-bold bg-red-500 hover:bg-red-400 active:bg-sky-400 rounded-sm p-1 mx-1">

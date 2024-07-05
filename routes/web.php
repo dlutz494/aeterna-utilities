@@ -34,15 +34,15 @@ Route::get('/contexts', [ContextController::class, 'index'])->name('context.inde
 Route::get('/context', [ContextController::class, 'create'])->name('context.create');
 Route::post('/context', [ContextController::class, 'doCreate'])->name('context.doCreate');
 Route::get('/context/{context}', [ContextController::class, 'edit'])->name('context.edit');
-Route::post('/context/{context}', [ContextController::class, 'doEdit'])->name('context.doEdit');
-Route::delete('/context/{context}', [ContextController::class, 'doDelete'])->name('context.delete');
+Route::patch('/context/{context}', [ContextController::class, 'doEdit'])->name('context.doEdit');
+Route::delete('/context/{context}', [ContextController::class, 'doDelete'])->name('context.doDelete');
 
 Route::get('/encounters', [EncounterController::class, 'index'])->name('encounter.index');
 Route::get('/encounter', [EncounterController::class, 'create'])->name('encounter.create');
 Route::post('/encounter', [EncounterController::class, 'doCreate'])->name('encounter.doCreate');
 Route::get('/encounter/{encounter}', [EncounterController::class, 'edit'])->name('encounter.edit');
-Route::post('/encounter/{encounter}', [EncounterController::class, 'doEdit'])->name('encounter.doEdit');
-Route::delete('/encounter/{encounter}', [EncounterController::class, 'doDelete'])->name('encounter.delete');
+Route::patch('/encounter/{encounter}', [EncounterController::class, 'doEdit'])->name('encounter.doEdit');
+Route::delete('/encounter/{encounter}', [EncounterController::class, 'doDelete'])->name('encounter.doDelete');
 
 Route::get('/generator', GeneratorController::class)->name('generator');
 

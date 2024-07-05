@@ -22,7 +22,7 @@ class EncounterController extends Controller
                 'contexts'    => $encounter->contexts ?? null,
                 'weights'     => $encounter->weights,
                 'edit_url'    => route('encounter.edit', $encounter),
-                'delete_url'  => route('encounter.delete', $encounter),
+                'delete_url'  => route('encounter.doDelete', $encounter),
             ];
         });
 
@@ -53,7 +53,8 @@ class EncounterController extends Controller
             }
         } else {
             $encounter->contextEncounters()->create([
-                'weight' => $request->validated('weights')[0],
+                'weight'     => $request->validated('weights')[0],
+                'context_id' => null,
             ]);
         }
 
@@ -107,7 +108,8 @@ class EncounterController extends Controller
             }
         } else {
             $encounter->contextEncounters()->create([
-                'weight' => $request->validated('weights')[0],
+                'weight'     => $request->validated('weights')[0],
+                'context_id' => null,
             ]);
         }
 
