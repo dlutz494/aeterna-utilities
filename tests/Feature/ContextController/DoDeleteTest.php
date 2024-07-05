@@ -3,6 +3,7 @@
 namespace Tests\Feature\ContextController;
 
 use App\Models\Context;
+use App\Models\Encounter;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -25,6 +26,30 @@ class DoDeleteTest extends TestCase
         $this->assertDatabaseCount('contexts', 0);
         $this->assertDatabaseMissing('contexts', [
             'title' => $this->context->title,
+        ]);
+    }
+
+    public function test_it_deletes_related_context_encounters()
+    {
+        $encounter = Encounter::factory()->create();
+        $encounter->contextEncounters()->create([
+            'context_id' => $this->context->id,
+            'weight'     => 10,
+        ]);
+        $this->assertDatabaseCount('contexts', 1);
+        $this->assertDatabaseHas('context_encounters', [
+            'encounter_id' => $encounter->id,
+            'context_id'   => $this->context->id,
+            'weight'       => 10,
+        ]);
+
+        $this->delete(route($this->route, $this->context));
+
+        $this->assertDatabaseCount('contexts', 0);
+        $this->assertDatabaseHas('context_encounters', [
+            'encounter_id' => $encounter->id,
+            'context_id'   => null,
+            'weight'       => 10,
         ]);
     }
 
