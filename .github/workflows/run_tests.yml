@@ -13,7 +13,8 @@ jobs:
     - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
       with:
         php-version: '8.2'
-    - uses: actions/checkout@v4
+    - name: Checkout
+      uses: actions/checkout@v4
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
     - name: Install Dependencies
@@ -29,9 +30,13 @@ jobs:
         mkdir -p database
         touch database/database.sqlite
         php artisan migrate:fresh
-    - name: Run Build
-      run: npm run build
-    - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
+    - name: Cypress run
+      uses: cypress-io/github-action@v6
+      with:
+        build: npm run build
+        start: npm start
+        browser: chrome
+    - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
