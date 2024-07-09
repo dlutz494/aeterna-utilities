@@ -28,9 +28,13 @@ jobs:
         mkdir -p database
         touch database/database.sqlite
         php artisan migrate:fresh
-    - name: Run Build
-      run: npm run build
-    - name: Execute tests (Unit and Feature tests) via PHPUnit/Pest
+    - name: Cypress run
+      uses: cypress-io/github-action@v6
+      with:
+        build: npm run build
+        start: npm start
+        browser: chrome
+    - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
         DB_CONNECTION: sqlite
         DB_DATABASE: database/database.sqlite
