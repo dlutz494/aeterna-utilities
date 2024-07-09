@@ -6,6 +6,9 @@ jobs:
   install:
     runs-on: ubuntu-22.04
     steps:
+      - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+        with:
+          php-version: '8.2'
       - name: Checkout
         uses: actions/checkout@v4
       - name: Copy .env
@@ -39,9 +42,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: install
     steps:
-    - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
-      with:
-        php-version: '8.2'
     - name: Checkout
       uses: actions/checkout@v4
     - name: Download the build folder
