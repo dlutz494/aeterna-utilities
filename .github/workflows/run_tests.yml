@@ -30,6 +30,8 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           runTests: false
+      - name: Run build
+        run: npm run build
       - name: Save build folder
         uses: actions/upload-artifact@v4
         with:
@@ -48,8 +50,6 @@ jobs:
       with:
         name: build
         path: build
-    - name: Run npm run build
-      run: npm run build
     - name: Execute tests (Unit and Feature tests) via PHPUnit
       env:
         DB_CONNECTION: sqlite
