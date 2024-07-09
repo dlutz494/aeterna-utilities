@@ -48,7 +48,9 @@ jobs:
         run: npm run build
       - uses: cypress-io/github-action@v6
         with:
-          config: baseUrl="http://localhost:8080"
+          config: baseUrl="http://localhost:3000"
+          wait-on-timeout: 120
+          browser: chrome
 
 #  cypress-tests:
 #    runs-on: ubuntu-latest
