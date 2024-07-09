@@ -65,5 +65,4 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           build: npm run build
-          browser: chrome
-          wait-on: "http://aeterna.test"
+          run: cypress run --browser chrome
