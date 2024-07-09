@@ -66,3 +66,4 @@ jobs:
         with:
           build: npm run build
           browser: chrome
+          wait-on: "http://aeterna.test"
