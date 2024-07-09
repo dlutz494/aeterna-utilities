@@ -38,8 +38,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Install Dependencies
-        run: |
-          npm install
+        run: npm install
+      - name: Start the server
+        run: npm run build
       - uses: cypress-io/github-action@v6
 
 #  cypress-tests:
