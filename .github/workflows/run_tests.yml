@@ -59,6 +59,8 @@ jobs:
           php artisan migrate:fresh --seed
       - name: NPM build
         run: npm run build
+      - name: Cypress info
+        run: npx cypress info
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
