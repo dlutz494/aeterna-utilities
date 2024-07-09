@@ -16,7 +16,7 @@ jobs:
       - name: Install dependencies
         run: |
           composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-          npm install
+          npm ci
       - name: Generate key
         run: php artisan key:generate
       - name: Directory Permissions
@@ -30,7 +30,6 @@ jobs:
         uses: cypress-io/github-action@v6
         with:
           runTests: false
-          build: npm run build
       - name: Save build folder
         uses: actions/upload-artifact@v4
         with:
