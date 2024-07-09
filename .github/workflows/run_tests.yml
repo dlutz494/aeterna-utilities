@@ -36,6 +36,7 @@ jobs:
   cypress-run:
     runs-on: ubuntu-latest
     steps:
+      - run: npm ci
       - uses: cypress-io/github-action@v6
 
 #  cypress-tests:
