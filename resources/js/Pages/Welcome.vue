@@ -32,12 +32,14 @@ function handleImageError () {
     <DefaultLayout header="Home" selected-page="Home">
         <menu class="flex flex-col items-center">
             <Link
+                id="generator"
                 :href="route('generator')"
                 class="rounded-xl py-2 px-6 mb-4 w-1/4 text-white font-extrabold bg-red-600 hover:bg-red-500 active:bg-red-700 block"
             >
                 Encounter Generator
             </Link>
             <Link
+                id="admin"
                 :href="route('admin')"
                 class="rounded-xl py-2 px-6 mb-4 w-1/4 text-white font-extrabold bg-red-600 hover:bg-red-500 active:bg-red-700 block"
             >
