@@ -44,12 +44,13 @@ jobs:
         run: |
           composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
           npm install
-      - name: Start the server
+      - name: Run build
         run: npm run build
+      - name: Start the server
+        run: php artisan serve
       - uses: cypress-io/github-action@v6
         with:
-          wait-on: "http://aeterna.test"
-          wait-on-timeout: 120
+          wait-on: "http://localhost:8000"
           browser: chrome
 
 #  cypress-tests:
