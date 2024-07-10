@@ -1,6 +1,7 @@
 describe('The Home Page', () => {
     it('displays the header', () => {
         cy.visit('/');
+        cy.url().should('equal', '/')
 
         cy.get('#site-header').should('contain.text', 'Home');
     });
