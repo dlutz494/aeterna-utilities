@@ -49,6 +49,6 @@ jobs:
       - name: Run build
         run: npm run build
       - uses: cypress-io/github-action@v6
-#        with:
-#          config: baseUrl=http://127.0.0.1:8000
+        with:
+          config: baseUrl=http://127.0.0.1:8000
 #          browser: chrome
