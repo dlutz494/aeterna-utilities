@@ -46,12 +46,12 @@ jobs:
           npm install
       - name: Run build
         run: npm run build
-      - name: Start the server
-        run: php artisan serve &
+#      - name: Start the server
+#        run: php artisan serve &
       - uses: cypress-io/github-action@v6
         with:
-          wait-on: 'http://127.0.0.1:8000'
-          config: baseUrl=http://127.0.0.1:8000
+          wait-on: 'http://127.0.0.1:80'
+          config: baseUrl=http://127.0.0.1:80
           browser: chrome
 
 #  cypress-tests:
