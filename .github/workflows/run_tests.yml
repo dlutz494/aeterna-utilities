@@ -50,8 +50,8 @@ jobs:
         run: npm run build
       - uses: cypress-io/github-action@v6
         with:
-          wait-on: 'http://127.0.0.1:80'
-          config: baseUrl=http://127.0.0.1:80
+          wait-on: 'http://127.0.0.1:5173'
+          config: baseUrl=http://127.0.0.1:5173
           browser: chrome
 
 #  cypress-tests:
