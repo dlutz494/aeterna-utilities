@@ -47,7 +47,7 @@ jobs:
       - name: Run build
         run: npm run build
       - name: Start the server
-        run: php artisan serve
+        run: php artisan serve &
       - uses: cypress-io/github-action@v6
         with:
           wait-on: "http://localhost:8000"
