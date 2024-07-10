@@ -1,11 +1,4 @@
 describe('The Home Page', () => {
-    it('tries google', () => {
-        cy.visit('https://www.google.com')
-    });
-    it('tries port 8000', () => {
-        cy.visit('http://127.0.0.1:8000')
-    });
-
     it('displays the header', () => {
         cy.visit('/');
 
