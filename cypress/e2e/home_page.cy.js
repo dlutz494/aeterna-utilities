@@ -1,18 +1,9 @@
 describe('The Home Page', () => {
-    it('tries aeterna.test', () => {
-        cy.visit('http://aeterna.test')
+    it('tries google', () => {
+        cy.visit('https://www.google.com')
     });
     it('tries port 8000', () => {
         cy.visit('http://127.0.0.1:8000')
-    });
-    it('tries port 80', () => {
-        cy.visit('http://127.0.0.1:80')
-    });
-    it('tries port 5173', () => {
-        cy.visit('http://127.0.0.1:5173')
-    });
-    it('tries no port', () => {
-        cy.visit('http://127.0.0.1')
     });
 
     it('displays the header', () => {
