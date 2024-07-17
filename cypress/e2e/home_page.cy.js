@@ -1,26 +1,24 @@
 describe('The Home Page', () => {
-    it('displays the header', () => {
+    beforeEach(() => {
         cy.visit('/');
-
-        cy.get('#site-header').should('contain.text', 'Home');
     });
-    it('displays the footer', () => {
-        cy.visit('/');
 
-        cy.get('#site-footer').should('contain', '2024 David Lutz');
-    });
-    it('displays the navbar', () => {
-        cy.visit('/');
-
-        cy.get('#nav-home').should('contain.text', 'Home');
-        cy.get('#nav-generator').should('contain.text', 'Generator');
-        cy.get('#nav-admin').should('contain.text', 'Admin Panel');
-        cy.get('#theme-toggle').should('contain.text', 'Toggle Theme:');
-    });
     it('displays the main menu', () => {
-        cy.visit('/');
+        cy.getBySel('generator-link').should('contain.text', 'Encounter Generator');
+        cy.getBySel('admin-panel-link').should('contain.text', 'Admin Panel');
+    });
 
-        cy.get('#generator').should('contain.text', 'Encounter Generator');
-        cy.get('#admin').should('contain.text', 'Admin Panel');
-    })
+    it('can navigate to encounter generator', () => {
+        cy.getBySel('generator-link').click();
+        cy.url().should('contain', '/generator');
+    });
+
+    it('can navigate to admin panel', () => {
+        cy.getBySel('admin-panel-link').click();
+        cy.url().should('contain', '/admin');
+    });
+
+    it('displays the header title', () => {
+        cy.getBySel('site-header').should('contain.text', 'Home');
+    });
 });
