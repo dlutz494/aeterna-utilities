@@ -53,6 +53,7 @@ onBeforeMount(() => {
         <header class="w-full">
             <h1
                 id="site-header"
+                data-cy="site-header"
                 class="py-3.5 w-full text-center font-extrabold text-3xl text-white border-b border-b-red-600 bg-black">
                 {{
                     props.header
@@ -61,6 +62,7 @@ onBeforeMount(() => {
                 <div class="w-1/3 flex text-center">
                     <Link
                         id="nav-home"
+                        data-cy="nav-home"
                         :href="route('welcome')"
                         class="mx-2 p-1 hover:text-white"
                         :class="{ 'border-blue-500': props.selectedPage === 'Home' }"
@@ -68,6 +70,7 @@ onBeforeMount(() => {
                     </Link>
                     <Link
                         id="nav-generator"
+                        data-cy="nav-generator"
                         :href="route('generator')"
                         class="mx-2 p-1 hover:text-white"
                         :class="{ 'border-blue-500': props.selectedPage === 'Generator' }"
@@ -75,6 +78,7 @@ onBeforeMount(() => {
                     </Link>
                     <Link
                         id="nav-admin"
+                        data-cy="nav-admin"
                         :href="route('admin')"
                         class="mx-2 p-1 hover:text-white"
                         :class="{ 'border-blue-500': props.selectedPage === 'Admin' }"
@@ -82,7 +86,12 @@ onBeforeMount(() => {
                     </Link>
                 </div>
 
-                <button id="theme-toggle" type="button" @click="toggleTheme" class="text-end hover:text-white"
+                <button
+                    id="nav-theme-toggle"
+                    data-cy="nav-theme-toggle"
+                    type="button"
+                    @click="toggleTheme"
+                    class="text-end hover:text-white"
                 >Toggle Theme: {{ darkMode.valueOf() ? 'Dark' : 'Light' }}
                 </button>
             </nav>
@@ -93,7 +102,7 @@ onBeforeMount(() => {
             <slot/>
         </main>
 
-        <footer id="site-footer" class="py-4 text-center text-sm text-white/70 bg-black sticky top-[100vh]"
+        <footer id="site-footer" data-cy="site-footer" class="py-4 text-center text-sm text-white/70 bg-black sticky top-[100vh]"
         >&copy; 2024 David Lutz</footer>
     </div>
 </template>
