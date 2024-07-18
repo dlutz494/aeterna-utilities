@@ -42,7 +42,8 @@ describe('The Encounter Index', () => {
             cy.get(':nth-child(15) > :nth-child(4) > ul > li').then((lastWeight) => {
                 const last = parseInt(lastWeight.text());
 
-                expect(first).to.be.lessThan(last);
+                const isSorted = (first < last);
+                expect(isSorted).to.be.true;
             });
         });
     });
@@ -58,7 +59,8 @@ describe('The Encounter Index', () => {
             cy.get(':nth-child(15) > :nth-child(4) > ul > li').then((lastWeight) => {
                 const last = parseInt(lastWeight.text());
 
-                expect(first).to.be.greaterThan(last);
+                const isSorted = (last < first);
+                expect(isSorted).to.be.true;
             });
         });
     });
