@@ -151,6 +151,7 @@ const pages = computed(() => {
     <DefaultLayout header="Encounters">
         <div class="grid place-items-center">
             <Link
+                data-cy="create-encounter-link"
                 :href="create_url"
                 class="rounded-xl py-2 px-6 w-1/4 text-white font-extrabold bg-red-600 hover:bg-red-500 active:bg-red-700"
             >
@@ -185,19 +186,22 @@ const pages = computed(() => {
                         </select>
                     </th>
                     <th class="border"></th>
-                    <th class="border font-bold text-white hover:cursor-pointer bg-sky-400 hover:bg-sky-300 active:bg-sky-400"
+                    <th data-cy="clear-sorting"
+                        class="border font-bold text-white hover:cursor-pointer bg-sky-400 hover:bg-sky-300 active:bg-sky-400"
                         @click="clearSorting">Clear Sorting
                     </th>
                 </tr>
                 <tr>
-                    <th class="border text-start p-4 hover:cursor-pointer w-[12%]" @click="sortTitles">Title {{
+                    <th data-cy="title-header"
+                        class="border text-start p-4 hover:cursor-pointer w-[12%]" @click="sortTitles">Title {{
                             titleSorting.valueOf() === 'ASC' ? '▲' :
                                 titleSorting.valueOf() === 'DESC' ? '▼' : ''
                         }}
                     </th>
                     <th class="border text-start p-4 w-1/2">Description</th>
                     <th class="border text-start p-4 w-[12%]">Context(s)</th>
-                    <th class="border text-start p-4 hover:cursor-pointer w-[12%]" @click="sortWeights">Weight(s) {{
+                    <th data-cy="weight-header"
+                        class="border text-start p-4 hover:cursor-pointer w-[12%]" @click="sortWeights">Weight(s) {{
                             weightSorting.valueOf() === 'ASC' ? '▲' :
                                 weightSorting.valueOf() === 'DESC' ? '▼' : ''
                         }}
@@ -246,8 +250,11 @@ const pages = computed(() => {
                 </tr>
                 </tbody>
             </table>
-            <div class="mb-4 flex w-2/3 justify-end">
+            <div
+                data-cy="pagination"
+                class="mb-4 flex w-2/3 justify-end">
                 <button
+                    data-cy="page-back"
                     class="bg-white p-1 border"
                     @click="previousPage"
                 >Back
@@ -261,6 +268,7 @@ const pages = computed(() => {
                     </button>
                 </div>
                 <button
+                    data-cy="page-next"
                     class="bg-white p-1 border"
                     @click="nextPage"
                 >Next
