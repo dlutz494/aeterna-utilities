@@ -14,11 +14,11 @@ describe('The Admin Panel', () => {
 
     it('navigates to encounter index', () => {
         cy.getBySel('encounters-link').click();
-        cy.url().should('contain', 'encounters');
+        cy.url().should('equal', Cypress.config().baseUrl + '/encounters');
     });
 
     it('navigates to context index', () => {
         cy.getBySel('contexts-link').click();
-        cy.url().should('contain', 'contexts');
+        cy.url().should('equal', Cypress.config().baseUrl + '/contexts');
     })
 });
