@@ -54,7 +54,7 @@ jobs:
         run: |
           mkdir -p database
           touch database/database.sqlite
-          php artisan migrate:fresh
+          php artisan migrate:fresh --seed
       - name: Start the server
         run: php artisan serve &
       - name: Run build
