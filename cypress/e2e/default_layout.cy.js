@@ -19,30 +19,29 @@ describe('The Default Layout', () => {
     });
 
     it('navbar navigates to home', () => {
-        cy.visit('/generator')
-        cy.getBySel('nav-home').click()
+        cy.visit('/generator');
+        cy.getBySel('nav-home').click();
 
-        cy.url().should('equal', Cypress.config().baseUrl + '/')
+        cy.url().should('equal', Cypress.config().baseUrl + '/');
     });
 
     it('navbar navigates to generator', () => {
-        cy.getBySel('nav-generator').click()
+        cy.getBySel('nav-generator').click();
 
-        cy.url().should('equal', Cypress.config().baseUrl + '/generator')
+        cy.url().should('equal', Cypress.config().baseUrl + '/generator');
     });
 
     it('navbar navigates to admin panel', () => {
-        cy.getBySel('nav-admin').click()
+        cy.getBySel('nav-admin').click();
 
-        cy.url().should('equal', Cypress.config().baseUrl + '/admin')
+        cy.url().should('equal', Cypress.config().baseUrl + '/admin');
     });
 
     it('toggles the theme', () => {
-        cy.getBySel('nav-theme-toggle')
-            .should('contain.text', 'Toggle Theme: Dark')
-            .click()
-            .should('contain.text', 'Toggle Theme: Light')
-            .click()
-            .should('contain.text', 'Toggle Theme: Dark');
-    })
+        cy.getBySel('nav-theme-toggle').should('contain.text', 'Toggle Theme: Light');
+        cy.getBySel('nav-theme-toggle').click();
+        cy.getBySel('nav-theme-toggle').should('contain.text', 'Toggle Theme: Dark');
+        cy.getBySel('nav-theme-toggle').click();
+        cy.getBySel('nav-theme-toggle').should('contain.text', 'Toggle Theme: Light');
+    });
 });
