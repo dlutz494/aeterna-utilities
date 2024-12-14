@@ -13,7 +13,8 @@ export default {
     theme: {
         extend: {
             backgroundImage: {
-                'site-body': 'url("/images/background_texture.png")'
+                'site-body': 'url("/storage/app/images/background_texture.png")'
+                // 'site-body': 'url("https://www.dndbeyond.com/content/1-0-3036-0/skins/waterdeep/images/background_texture.png")'
             },
             fontFamily: {
                 // sans: ['Figtree', ...defaultTheme.fontFamily.sans],
