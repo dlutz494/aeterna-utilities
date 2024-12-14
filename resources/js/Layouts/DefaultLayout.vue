@@ -44,6 +44,7 @@ const selectedPage = ref('');
 onBeforeMount(() => {
     // Set the theme
     if (localStorage.getItem('theme') === 'dark') setDarkMode();
+    else if (localStorage.getItem('theme') === 'light') setLightMode();
     else setLightMode();
 });
 </script>

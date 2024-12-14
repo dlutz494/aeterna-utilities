@@ -38,10 +38,10 @@ describe('The Default Layout', () => {
     });
 
     it('toggles the theme', () => {
-        cy.getBySel('nav-theme-toggle').should('contain.text', 'Toggle Theme: Light');
-        cy.getBySel('nav-theme-toggle').click();
         cy.getBySel('nav-theme-toggle').should('contain.text', 'Toggle Theme: Dark');
         cy.getBySel('nav-theme-toggle').click();
         cy.getBySel('nav-theme-toggle').should('contain.text', 'Toggle Theme: Light');
+        cy.getBySel('nav-theme-toggle').click();
+        cy.getBySel('nav-theme-toggle').should('contain.text', 'Toggle Theme: Dark');
     });
 });
