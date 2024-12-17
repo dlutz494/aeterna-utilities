@@ -23,7 +23,7 @@ function submit () {
 }
 
 function addContext () {
-    form.contexts.push(props.all_contexts[0].id);
+    form.contexts.push(props.all_contexts[0]?.id);
     form.contexts.length > 1 ? form.weights.push(0) : null;
 }
 
