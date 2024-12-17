@@ -18,11 +18,11 @@ onUpdated(() => selectContext());
 
 <template>
     <div class="w-1/2 text-start pl-2">
-        <label for="context-selector" class="my-2.5 mr-2 text-2xl">Context: </label>
+        <label for="context-selector" class="my-2.5 mr-2 text-2xl max-md:text-xl">Context: </label>
         <select
             id="context-selector"
             @change="(e) => emit('select:context', e.target.value)"
-            class="w-1/3"
+            class="w-2/3"
         >
             <option
                 v-for="context in encounterContexts"
