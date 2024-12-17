@@ -55,11 +55,11 @@ const dieWeightedEncounters = computed(() => {
 </script>
 
 <template>
-    <table class="mb-4 w-1/2 bg-white text-sm">
+    <table class="mb-4 w-3/4 bg-white text-sm">
         <thead class="border-b-[3px] border-b-stone-300">
         <tr>
             <th class="border">
-                <select name="dice" v-model="selectedDie" class="w-full text-center text-sm p-4">
+                <select name="dice" v-model="selectedDie" class="w-full text-left text-sm p-4">
                     <option value="0" selected>Chance</option>
                     <option value="4">d4</option>
                     <option value="6">d6</option>

@@ -28,13 +28,13 @@ const emit = defineEmits(['generate:encounter']);
     <input
         id="result-title"
         type="text"
-        class="w-1/2"
+        class="w-3/4 border-stone-300"
         :value="result.title"
         disabled
     >
     <textarea
         id="result-description"
-        class="w-1/2 h-24"
+        class="w-3/4 h-24 border-stone-300 bg-stone-100"
         :value="result.description"
         disabled
     ></textarea>
