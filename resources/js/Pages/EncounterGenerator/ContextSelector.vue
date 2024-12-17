@@ -9,7 +9,7 @@ const props = defineProps(
 const emit = defineEmits(['select:context']);
 
 function selectContext () {
-    emit('select:context', props.encounterContexts[0].id);
+    emit('select:context', props.encounterContexts[0]?.id);
 }
 
 onMounted(() => selectContext());
